@@ -1,6 +1,6 @@
 import { lazy } from "react";
 
-
+const AppBar = lazy(() => import("./components/AppBar"));
 const Products = lazy(() => import("./pages/Products"));
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
@@ -8,9 +8,10 @@ const Login = lazy(() => import("./pages/Login"));
 function App() {
   return (
     <div >
-      <Products/>
-      <Register/>
-      <Login/>
+      <AppBar />
+      <Products />
+      <Register />
+      <Login />
     </div>
   );
 }

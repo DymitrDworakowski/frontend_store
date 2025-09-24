@@ -1,24 +1,7 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/goods";
-import { logout } from "../api/admin";
 
 function Products() {
-  const mutation = useMutation({
-    mutationFn: logout,
-    onSuccess: () => {
-      localStorage.removeItem("token");
-      alert("Logout successful");
-    },
-    onError: (error) => {
-      console.error("Logout error details:", error);
-      alert(`Logout failed: ${error.message}`);
-    },
-  });
-  const handleLogout = () => {
-    const token = localStorage.getItem("token");
-    mutation.mutate(token);
-  };
-
   const { data, error, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
@@ -38,9 +21,6 @@ function Products() {
           </li>
         ))}
       </ul>
-      <button onClick={handleLogout} disabled={mutation.isLoading}>
-        {mutation.isLoading ? "Logging out..." : "Logout"}
-      </button>
     </div>
   );
 }

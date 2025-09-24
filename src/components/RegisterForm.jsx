@@ -1,8 +1,7 @@
-import {userRegister} from "../api/admin";
+import { userRegister } from "../api/admin";
 import { useMutation } from "@tanstack/react-query";
 
 function RegisterForm() {
-
   const mutation = useMutation({
     mutationFn: userRegister,
     onSuccess: (data) => {

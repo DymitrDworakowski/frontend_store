@@ -2,7 +2,6 @@ const API_URL = "https://backendstore-production.up.railway.app";
 
 
 export async function userRegister(data){
-  console.log(data);
   const res = await fetch(`${API_URL}/users/register`, {
     method: "POST",
     headers: {
