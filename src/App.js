@@ -1,11 +1,16 @@
-import Products from '../src/pages/Products';
-import LoginForm from './components/LoginForm';
+import { lazy } from "react";
+
+
+const Products = lazy(() => import("./pages/Products"));
+const Register = lazy(() => import("./pages/Register"));
+const Login = lazy(() => import("./pages/Login"));
 
 function App() {
   return (
     <div >
       <Products/>
-      <LoginForm/>
+      <Register/>
+      <Login/>
     </div>
   );
 }

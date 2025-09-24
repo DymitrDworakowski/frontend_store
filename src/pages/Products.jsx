@@ -25,7 +25,6 @@ function Products() {
   });
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-console.log(data);
   return (
     <div>
       <h2>Products</h2>

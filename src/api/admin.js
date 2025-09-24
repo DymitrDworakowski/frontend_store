@@ -1,5 +1,19 @@
 const API_URL = "https://backendstore-production.up.railway.app";
 
+
+export async function userRegister(data){
+  console.log(data);
+  const res = await fetch(`${API_URL}/users/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error("Failed to register");
+  return res.json();
+}
+
 export async function adminLogin(credentials) {
   const res = await fetch(`${API_URL}/users/login`, {
     method: "POST",
