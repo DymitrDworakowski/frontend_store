@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 function Layout() {
   return (
-    <div className="flex ">
+    <div>
       <AppBar />
       <Suspense fallback={null}>
         <Outlet />

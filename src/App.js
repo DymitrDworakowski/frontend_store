@@ -9,7 +9,6 @@ const Login = lazy(() => import("./pages/Login"));
 function App() {
   return (
     <>
-      <div className="p-4 bg-green-500 text-white text-center">Tailwind is active ✅</div>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Products />} />

@@ -1,0 +1,25 @@
+.appBar {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1rem 0;
+}
+.link {
+    text-decoration: none;
+    color: blue;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: lightblue;
+    background-color: blue;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+.link:hover {
+    background-color: darkblue;
+    color: white;
+}
+.userMenu {
+    margin-left: auto;
+}
