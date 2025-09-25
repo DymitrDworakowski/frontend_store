@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 
 /*
 Props:
@@ -18,17 +18,55 @@ const SORT_OPTIONS = [
 
 const LIMIT_OPTIONS = [10, 20, 50];
 
-function FilterPanel({ onFilterChange }) {
-  const [category, setCategory] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [sort, setSort] = useState("createdAt:desc");
-  const [limit, setLimit] = useState(10);
+function FilterPanel({ onFilterChange, debounceMs = 400, autoApply = true, storageKey = 'productFilters' }) {
+  const initial = useRef(null);
+  if (initial.current === null) {
+    try {
+      const stored = localStorage.getItem(storageKey);
+      initial.current = stored ? JSON.parse(stored) : {};
+    } catch { initial.current = {}; }
+  }
 
-  // Debounce / immediate sync (simple immediate approach here)
+  const [category, setCategory] = useState(initial.current.category || "");
+  const [minPrice, setMinPrice] = useState(initial.current.minPrice || "");
+  const [maxPrice, setMaxPrice] = useState(initial.current.maxPrice || "");
+  const [sort, setSort] = useState(initial.current.sort || "createdAt:desc");
+  const [limit, setLimit] = useState(initial.current.limit || 10);
+  const [error, setError] = useState("");
+  const timerRef = useRef(null);
+
+  const currentFilters = useMemo(() => ({ category, minPrice, maxPrice, sort, limit }), [category, minPrice, maxPrice, sort, limit]);
+
+  // Persist to localStorage whenever filters change
   useEffect(() => {
-    onFilterChange?.({ category, minPrice, maxPrice, sort, limit });
-  }, [category, minPrice, maxPrice, sort, limit, onFilterChange]);
+    try { localStorage.setItem(storageKey, JSON.stringify(currentFilters)); } catch {}
+  }, [currentFilters, storageKey]);
+
+  // Validation
+  useEffect(() => {
+    if (minPrice && maxPrice && Number(minPrice) > Number(maxPrice)) {
+      setError('Min price cannot exceed max price');
+    } else {
+      setError('');
+    }
+  }, [minPrice, maxPrice]);
+
+  // Debounced auto apply
+  useEffect(() => {
+    if (!autoApply) return; // manual apply mode
+    if (error) return; // don't emit while invalid
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      onFilterChange?.(currentFilters);
+    }, debounceMs);
+    return () => timerRef.current && clearTimeout(timerRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, minPrice, maxPrice, sort, limit, error, autoApply, debounceMs]);
+
+  const handleApply = () => {
+    if (error) return;
+    onFilterChange?.(currentFilters);
+  };
 
   const handleReset = () => {
     setCategory("");
@@ -36,13 +74,9 @@ function FilterPanel({ onFilterChange }) {
     setMaxPrice("");
     setSort("createdAt:desc");
     setLimit(10);
-    onFilterChange?.({
-      category: "",
-      minPrice: "",
-      maxPrice: "",
-      sort: "createdAt:desc",
-      limit: 10,
-    });
+    setError("");
+    onFilterChange?.({ category: "", minPrice: "", maxPrice: "", sort: "createdAt:desc", limit: 10 });
+    try { localStorage.removeItem(storageKey); } catch {}
   };
 
   return (
@@ -54,7 +88,8 @@ function FilterPanel({ onFilterChange }) {
         borderRadius: "4px",
       }}
     >
-      <h3 style={{ marginTop: 0 }}>Filters</h3>
+  <h3 style={{ marginTop: 0 }}>Filters</h3>
+  {!autoApply && <small style={{ display: 'block', marginBottom: '0.5rem' }}>Manual mode: click Apply to update list</small>}
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
         <div
           style={{
@@ -146,9 +181,9 @@ function FilterPanel({ onFilterChange }) {
         </div>
       </div>
       <div style={{ marginTop: "0.75rem" }}>
-        <button type="button" onClick={handleReset}>
-          Reset
-        </button>
+        {error && <span style={{ color: 'red', marginRight: '1rem' }}>{error}</span>}
+        <button type="button" onClick={handleReset} style={{ marginRight: '0.5rem' }}>Reset</button>
+        {!autoApply && <button type="button" disabled={!!error} onClick={handleApply}>Apply</button>}
       </div>
     </div>
   );

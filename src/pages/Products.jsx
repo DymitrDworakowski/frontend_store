@@ -19,7 +19,10 @@ function Products() {
     <>
       <SearchBar onSearch={(val) => setFilters(f => ({ ...f, search: val, page: 1 }))} />
       <FilterPanel onFilterChange={(newFilters) => setFilters(f => ({ ...f, ...newFilters, page: 1 }))} />
-      <ProductsList filters={filters} />
+      <ProductsList
+        filters={filters}
+        onPageChange={(page) => setFilters(f => ({ ...f, page }))}
+      />
     </>
   );
 }

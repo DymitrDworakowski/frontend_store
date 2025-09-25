@@ -1,12 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-// Props: onSearch(term: string)
-function SearchBar({ onSearch }) {
-  const [value, setValue] = useState('');
+/* Props:
+   onSearch(term: string) -> void
+   debounceMs = number (default 400)
+   initialValue = string
+   submitMode = 'debounced' | 'instant' | 'manual' (default 'debounced')
+*/
+function SearchBar({ onSearch, debounceMs = 400, initialValue = '', submitMode = 'debounced' }) {
+  const [value, setValue] = useState(initialValue);
+  const timerRef = useRef(null);
+  const lastSubmitted = useRef(initialValue);
+
+  // Debounced/instant effect
+  useEffect(() => {
+    if (submitMode === 'manual') return; // only submit on explicit form submit
+    if (submitMode === 'instant') {
+      onSearch?.(value.trim());
+      lastSubmitted.current = value.trim();
+      return;
+    }
+    // debounced
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      const term = value.trim();
+      if (term !== lastSubmitted.current) {
+        onSearch?.(term);
+        lastSubmitted.current = term;
+      }
+    }, debounceMs);
+    return () => timerRef.current && clearTimeout(timerRef.current);
+  }, [value, debounceMs, onSearch, submitMode]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch?.(value.trim());
+    const term = value.trim();
+    if (term !== lastSubmitted.current) {
+      onSearch?.(term);
+      lastSubmitted.current = term;
+    }
   };
 
   const handleChange = (e) => {
@@ -15,7 +46,10 @@ function SearchBar({ onSearch }) {
 
   const handleClear = () => {
     setValue('');
-    onSearch?.('');
+    if (submitMode !== 'manual') {
+      onSearch?.('');
+      lastSubmitted.current = '';
+    }
   };
 
   return (
@@ -27,7 +61,7 @@ function SearchBar({ onSearch }) {
         onChange={handleChange}
         style={{ flex: 1, padding: '0.5rem' }}
       />
-      <button type="submit">Search</button>
+      {submitMode === 'manual' && <button type="submit">Search</button>}
       {value && (
         <button type="button" onClick={handleClear}>Clear</button>
       )}

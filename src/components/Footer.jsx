@@ -12,7 +12,7 @@ function Footer() {
         <NavLink to="/contact" className={style.link}>
           Contact
         </NavLink>
-        <NavLink to="/admin" className={style.link} component={AdminLogin}>
+        <NavLink to="/admin/login" className={style.link} component={AdminLogin}>
           Admin
         </NavLink>
       </nav>
