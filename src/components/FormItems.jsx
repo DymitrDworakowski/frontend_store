@@ -35,10 +35,11 @@ function FormItems() {
         <input type="number" name="stock" placeholder="Stock" />
         <input type="text" name="category" placeholder="Category" />
         <input type="text" name="barcode" placeholder="Barcode" />
-        <button type="submit">Add Product</button>
+        <button type="submit">
+          {mutation.isLoading ? "Adding..." : "Add Product"}
+        </button>
       </form>
     </div>
   );
 }
 export default FormItems;
-

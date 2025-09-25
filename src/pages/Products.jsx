@@ -1,28 +1,26 @@
-import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../api/goods";
-import style from './Products.module.css';
+import ProductsList from "../components/ProductsList";
+import SearchBar from "../components/SearchBar";
+import FilterPanel from "../components/FilterPanel";
+
+const { useState } = require("react");
 
 function Products() {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
+  const [filters, setFilters] = useState({
+    page: 1,
+    limit: 10,
+    search: "",
+    category: "",
+    minPrice: 0,
+    maxPrice: "",
+    sort: "createdAt:desc",
   });
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+
   return (
-    <div className={style.products}>
-      <h2 className={style.title}>Products</h2>
-      <ul className={style.list}>
-        {data.products.map((product) => (
-          <li key={product._id} className={style.item}>
-            <p className={style.name}>Name: {product.title}</p>
-            <p className={style.price}>Price: {product.price}</p>
-            <p>Category: {product.category}</p>
-            <p>On stock: {!product.stock ? "-" : product.stock}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <SearchBar onSearch={(val) => setFilters(f => ({ ...f, search: val, page: 1 }))} />
+      <FilterPanel onFilterChange={(newFilters) => setFilters(f => ({ ...f, ...newFilters, page: 1 }))} />
+      <ProductsList filters={filters} />
+    </>
   );
 }
 

@@ -49,3 +49,16 @@ export async function addItems({ token, itemData }) {
   if (!res.ok) throw new Error("Failed to add item");
   return res.json();
 }
+
+export async function editItem({ token, itemId, itemData }) {
+  const res = await fetch(`${API_URL}/admin/products/${itemId}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(itemData),
+  });
+  if (!res.ok) throw new Error("Failed to edit item");
+  return res.json();
+}
