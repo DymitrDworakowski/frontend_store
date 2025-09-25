@@ -40,7 +40,21 @@ function useAuth() {
     }
 
     window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    // Also listen for same-window auth change events (dispatched after login/logout)
+    function onAuthChange(e) {
+      // event detail contains { user }
+      try {
+        const payload = e.detail;
+        setUser(payload?.user ?? null);
+      } catch {
+        setUser(null);
+      }
+    }
+    window.addEventListener("authChange", onAuthChange);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("authChange", onAuthChange);
+    };
   }, []);
 
   const login = useCallback((userData) => {
@@ -50,6 +64,10 @@ function useAuth() {
     } catch (e) {
       console.error("useAuth: failed to persist user", e);
     }
+    // notify same-window listeners
+    try {
+      window.dispatchEvent(new CustomEvent('authChange', { detail: { user: userData } }));
+    } catch {}
   }, []);
 
   const logout = useCallback(() => {
@@ -63,6 +81,10 @@ function useAuth() {
     } catch (e) {
       console.error("useAuth: failed to remove user", e);
     }
+    // notify same-window listeners
+    try {
+      window.dispatchEvent(new CustomEvent('authChange', { detail: { user: null } }));
+    } catch {}
   }, []);
 
   const isAuthenticated = !!user || tokenPresent;

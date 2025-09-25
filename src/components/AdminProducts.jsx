@@ -5,12 +5,14 @@ import SearchBar from "./SearchBar";
 import FilterPanel from "./FilterPanel";
 import FormItems from "./FormItems";
 import Pagination from "./Pagination";
+import style from "./AdminProducts.module.css";
 
 function AdminProducts() {
   const queryClient = useQueryClient();
 
   const [editingId, setEditingId] = React.useState(null);
   const [editingData, setEditingData] = React.useState(null);
+  const [onOpen, setOnOpen] = React.useState(false);
 
   // Filters (kept local to admin panel)
   const [filters, setFilters] = React.useState({
@@ -51,8 +53,8 @@ function AdminProducts() {
       token: localStorage.getItem("token"),
       itemId: productId,
     });
-    console.log(productId)
   };
+
   // Start editing an item
   const handleStartEdit = (product) => {
     setEditingId(product._id);
@@ -65,11 +67,13 @@ function AdminProducts() {
       description: product.description,
       imageUrl: product.imageUrl,
     });
+    setOnOpen(true);
   };
 
   const stopEditing = () => {
     setEditingId(null);
     setEditingData(null);
+    setOnOpen(false); // Ensure modal closes
   };
 
   // Support different shapes: { products: [...] } or array
@@ -85,9 +89,7 @@ function AdminProducts() {
   const totalPages = (data?.totalPages ?? data?.pages ?? fallbackPages) || 1;
 
   return (
-    <div>
-      <h2>Admin Products</h2>
-
+    <div className={style.container}>
       {/* Search + Filters */}
       <SearchBar
         initialValue={filters.search}
@@ -108,30 +110,29 @@ function AdminProducts() {
           queryClient.invalidateQueries(["adminProducts"]);
         }}
       />
-
-      <ul>
+      <h2 className={style.title}>Admin Products</h2>
+      <ul className={style.productList}>
         {items.map((product) => (
-          <li key={product._id} style={{ marginBottom: 12 }}>
-            <div>
-              <strong>{product.title}</strong> — {product.price}
+          <li key={product._id} className={style.productItem}>
+            <div className={style.productInfo}>
+              <strong className={style.productName}>{product.title}</strong> —{" "}
+              {product.price}
               <button
-                style={{ marginLeft: 8 }}
+                className={style.editButton}
                 onClick={() => handleStartEdit(product)}
               >
                 Edit
               </button>
               <button
-                style={{ marginLeft: 8 }}
+                className={style.deleteButton}
                 onClick={() => handleDelete(product._id)}
               >
                 Delete
               </button>
             </div>
 
-            {editingId === product._id && (
-              <div
-                style={{ marginTop: 8, padding: 8, border: "1px solid #eee" }}
-              >
+            {editingId === product._id && onOpen && (
+              <div className={style.editFormModal}>
                 <FormItems
                   mode="edit"
                   itemId={editingId}
@@ -141,7 +142,7 @@ function AdminProducts() {
                     stopEditing();
                   }}
                 />
-                <button onClick={stopEditing} style={{ marginTop: 8 }}>
+                <button className={style.cancelButton} onClick={stopEditing}>
                   Cancel
                 </button>
               </div>
@@ -162,3 +163,4 @@ function AdminProducts() {
   );
 }
 export default AdminProducts;
+

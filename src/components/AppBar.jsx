@@ -5,6 +5,7 @@ import AuthNav from "./AuthNav";
 import style from './AppBar.module.css';
 
 
+
 function AppBar() {
   const { isAuthenticated } = useAuth();
 

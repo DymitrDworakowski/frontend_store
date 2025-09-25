@@ -28,3 +28,14 @@ export async function getProducts({
   if (!res.ok) throw new Error("Failed to fetch products");
   return res.json();
 }
+
+export async function getCartItems(token) {
+  const res = await fetch(`${API_URL}/cart`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to fetch cart items");
+  return res.json();
+}
