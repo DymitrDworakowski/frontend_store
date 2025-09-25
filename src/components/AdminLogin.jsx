@@ -1,7 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { adminLogin } from "../api/admin";
+import { useNavigate } from "react-router-dom";
 
 function AdminLogin() {
+  const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: adminLogin,
     onSuccess: (data) => {
@@ -23,6 +25,7 @@ function AdminLogin() {
     };
 
     mutation.mutate(credentials);
+    navigate("/admin/panel");
   };
 
   return (

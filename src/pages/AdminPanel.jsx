@@ -1,9 +1,11 @@
-import FormItems from "../components/FormItems";
+
+import AdminProducts from "../components/AdminProducts";
 
 function AdminPanel() {
   return (
     <div>
-      <FormItems />
+      {/* <FormItems /> */}
+      <AdminProducts />
     </div>
   );
 }

@@ -62,3 +62,45 @@ export async function editItem({ token, itemId, itemData }) {
   if (!res.ok) throw new Error("Failed to edit item");
   return res.json();
 }
+
+export async function deleteItem({ token, itemId }) {
+  const res = await fetch(`${API_URL}/admin/products/${itemId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  if (!res.ok) throw new Error("Failed to delete item");
+  return res.json();
+}
+
+export async function getAdminProducts({
+  page = 1,
+  limit = 10,
+  search = "",
+  category,
+  minPrice,
+  maxPrice,
+  sort = "createdAt:desc",
+}) {
+  // Ensure sort is always a string
+  const sortParam =
+    typeof sort === "string" && sort.length > 0 ? sort : "createdAt:desc";
+  const params = new URLSearchParams();
+
+  params.append("page", page);
+  params.append("limit", limit);
+  if (search) params.append("search", search);
+  if (category) params.append("category", category);
+  if (minPrice) params.append("minPrice", minPrice);
+  if (maxPrice) params.append("maxPrice", maxPrice);
+  params.append("sort", sortParam);
+
+  const res = await fetch(`${API_URL}/products?${params.toString()}`, {
+    method: "GET",
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch products");
+  return res.json();
+}
