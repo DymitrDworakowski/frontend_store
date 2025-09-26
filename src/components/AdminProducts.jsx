@@ -106,13 +106,7 @@ function AdminProducts() {
 
   return (
     <div className={style.container}>
-      <div className={style.header}>
-        <h1 className={style.title}>Product Management</h1>
-        <div className={style.controls}>
-          <SearchBar initialValue={filters.search} onSearch={handleSearch} />
-          <FilterPanel onFilterChange={handleFilterChange} autoApply={true} />
-        </div>
-      </div>
+      
 
       <div >
         <FormItems
@@ -124,7 +118,13 @@ function AdminProducts() {
           Total products: {data?.total ?? data?.count ?? items.length}
         </div>
       </div>
-
+<div className={style.header}>
+        <h1 className={style.title}>Product Management</h1>
+        <div className={style.controls}>
+          <SearchBar initialValue={filters.search} onSearch={handleSearch} />
+          <FilterPanel onFilterChange={handleFilterChange} autoApply={true} />
+        </div>
+      </div>
       <div className={style.productsGrid}>
         {items.length === 0 ? (
           <div className={style.emptyState}>No products found</div>
