@@ -1,16 +1,17 @@
-const API_URL = 'https://backendstore-production.up.railway.app';
+const API_URL = "https://backendstore-production.up.railway.app";
 
-export async function getProducts({ 
-  page = 1, 
-  limit = 10, 
-  search = "", 
-  category, 
-  minPrice, 
-  maxPrice, 
-  sort = "createdAt:desc" 
+export async function getProducts({
+  page = 1,
+  limit = 10,
+  search = "",
+  category,
+  minPrice,
+  maxPrice,
+  sort = "createdAt:desc",
 }) {
   // Ensure sort is always a string
-  const sortParam = typeof sort === "string" && sort.length > 0 ? sort : "createdAt:desc";
+  const sortParam =
+    typeof sort === "string" && sort.length > 0 ? sort : "createdAt:desc";
   const params = new URLSearchParams();
 
   params.append("page", page);
@@ -37,5 +38,18 @@ export async function getCartItems(token) {
     },
   });
   if (!res.ok) throw new Error("Failed to fetch cart items");
+  return res.json();
+}
+export async function addToCart(token, productId, quantity = 1) {
+  console.log(token, productId, quantity);
+  const res = await fetch(`${API_URL}/cart/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ productId, quantity }),
+  });
+  if (!res.ok) throw new Error("Failed to add item to cart");
   return res.json();
 }

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/goods";
 import style from "./ProductsList.module.css";
 import Pagination from "./Pagination";
+import CartAdd from "./CartItems";
 import Loader from "./Loader";
 
 function ProductsList({ filters, onPageChange }) {
@@ -22,6 +23,8 @@ function ProductsList({ filters, onPageChange }) {
   const pageToShow = clientPage || serverPage || 1;
   const totalPages = Number(data?.totalPages || data?.pages || Math.ceil((data?.total || items.length) / (filters?.limit || 1))) || 1;
 
+  const token = localStorage.getItem("token");
+
   return (
     <div className={style.products}>
       <h2 className={style.title}>Products</h2>
@@ -36,6 +39,7 @@ function ProductsList({ filters, onPageChange }) {
             <p className={style.price}>Price: {product.price}</p>
             <p>Category: {product.category}</p>
             <p>On stock: {!product.stock ? "-" : product.stock}</p>
+            {token ? <CartAdd token={token} item={product._id} quantity={1} /> : null}
           </li>
         ))}
       </ul>
