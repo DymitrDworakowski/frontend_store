@@ -112,19 +112,44 @@ function AdminProducts() {
       />
       <h2 className={style.title}>Admin Products</h2>
       <ul className={style.productList}>
+        {items.length === 0 && (
+          <div className={style.emptyState}>No products found.</div>
+        )}
         {items.map((product) => (
           <li key={product._id} className={style.productItem}>
-            <div className={style.productInfo}>
-              <strong className={style.productName}>{product.title}</strong> —{" "}
-              {product.price}
+            <div className={style.productTop}>
+              <img
+                src={product.imageUrl || '/logo192.png'}
+                alt={product.title}
+                className={style.productImage}
+              />
+
+              <div className={style.productBody}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
+                  <div>
+                    <h3 className={style.productName}>{product.title}</h3>
+                    <p className={style.description}>{product.description || 'No description'}</p>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div className={style.productPrice}>{product.price}</div>
+                    <div className={style.productMeta}>
+                      <span className={style.badge}>{product.category || '—'}</span>
+                      <span style={{ color: 'var(--muted)', fontSize: 12 }}>Stock: {product.stock ?? '-'}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={style.actions}>
               <button
-                className={style.editButton}
+                className={`${style.btn} ${style.editButton}`}
                 onClick={() => handleStartEdit(product)}
               >
                 Edit
               </button>
               <button
-                className={style.deleteButton}
+                className={`${style.btn} ${style.deleteButton}`}
                 onClick={() => handleDelete(product._id)}
               >
                 Delete
@@ -132,19 +157,27 @@ function AdminProducts() {
             </div>
 
             {editingId === product._id && onOpen && (
-              <div className={style.editFormModal}>
-                <FormItems
-                  mode="edit"
-                  itemId={editingId}
-                  initialData={editingData}
-                  onSuccess={() => {
-                    queryClient.invalidateQueries(["adminProducts"]);
-                    stopEditing();
-                  }}
-                />
-                <button className={style.cancelButton} onClick={stopEditing}>
-                  Cancel
-                </button>
+              <div className={style.editFormModal} role="dialog" aria-modal="true">
+                <div className={style.modalContent}>
+                  <div className={style.modalHeader}>
+                    <h3 className={style.modalTitle}>Edit product</h3>
+                    <button aria-label="Close edit" className={style.modalClose} onClick={stopEditing}>&times;</button>
+                  </div>
+                  <div className={style.modalBody}>
+                    <FormItems
+                      mode="edit"
+                      itemId={editingId}
+                      initialData={editingData}
+                      onSuccess={() => {
+                        queryClient.invalidateQueries(["adminProducts"]);
+                        stopEditing();
+                      }}
+                    />
+                  </div>
+                  <div className={style.modalFooter}>
+                    <button className={`${style.btn} ${style.cancelButton}`} onClick={stopEditing}>Cancel</button>
+                  </div>
+                </div>
               </div>
             )}
           </li>

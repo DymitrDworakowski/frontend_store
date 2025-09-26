@@ -1,71 +1,40 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from "react";
 
-/* Props:
-   onSearch(term: string) -> void
-   debounceMs = number (default 400)
-   initialValue = string
-   submitMode = 'debounced' | 'instant' | 'manual' (default 'debounced')
-*/
-function SearchBar({ onSearch, debounceMs = 400, initialValue = '', submitMode = 'debounced' }) {
+function SearchBar({ onSearch, debounceMs = 400, initialValue = "" }) {
   const [value, setValue] = useState(initialValue);
-  const timerRef = useRef(null);
-  const lastSubmitted = useRef(initialValue);
 
-  // Debounced/instant effect
   useEffect(() => {
-    if (submitMode === 'manual') return; // only submit on explicit form submit
-    if (submitMode === 'instant') {
+    const handler = setTimeout(() => {
       onSearch?.(value.trim());
-      lastSubmitted.current = value.trim();
-      return;
-    }
-    // debounced
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      const term = value.trim();
-      if (term !== lastSubmitted.current) {
-        onSearch?.(term);
-        lastSubmitted.current = term;
-      }
     }, debounceMs);
-    return () => timerRef.current && clearTimeout(timerRef.current);
-  }, [value, debounceMs, onSearch, submitMode]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const term = value.trim();
-    if (term !== lastSubmitted.current) {
-      onSearch?.(term);
-      lastSubmitted.current = term;
-    }
-  };
+    return () => clearTimeout(handler);
+  }, [value, debounceMs, onSearch]);
 
   const handleChange = (e) => {
     setValue(e.target.value);
   };
 
   const handleClear = () => {
-    setValue('');
-    if (submitMode !== 'manual') {
-      onSearch?.('');
-      lastSubmitted.current = '';
-    }
+    setValue("");
+    onSearch?.("");
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+    <div style={{ marginBottom: "1rem", display: "flex", gap: "0.5rem" }}>
       <input
         type="text"
         placeholder="Search products..."
         value={value}
         onChange={handleChange}
-        style={{ flex: 1, padding: '0.5rem' }}
+        style={{ flex: 1, padding: "0.5rem" }}
       />
-      {submitMode === 'manual' && <button type="submit">Search</button>}
       {value && (
-        <button type="button" onClick={handleClear}>Clear</button>
+        <button type="button" onClick={handleClear}>
+          Clear
+        </button>
       )}
-    </form>
+    </div>
   );
 }
 

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/goods";
 import style from "./ProductsList.module.css";
 import Pagination from "./Pagination";
+import Loader from "./Loader";
 
 function ProductsList({ filters, onPageChange }) {
   const { data, isLoading, error } = useQuery({
@@ -9,9 +10,8 @@ function ProductsList({ filters, onPageChange }) {
     queryFn: () => getProducts(filters),
     keepPreviousData: true,
   });
-  
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />;
   if (error)
     return <p>Error: {error instanceof Error ? error.message : String(error)}</p>;
   return (
