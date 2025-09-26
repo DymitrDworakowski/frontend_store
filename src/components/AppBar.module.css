@@ -5,9 +5,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0;
-  padding: 1rem 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  box-shadow: 0 6px 26px rgba(2,6,23,0.08);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -27,8 +26,8 @@
   text-decoration: none;
   padding: 12px 24px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: rgba(209, 38, 38, 0.1);
+  color: rgb(198, 53, 53);
   font-weight: 600;
   font-size: 0.95rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -65,56 +64,6 @@
   transition: transform 0.1s;
 }
 
-/* Активний стан посилання (додайте клас .active до поточного посилання) */
-.link.active {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.userMenu {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* Стилі для аватара/імені користувача */
-.userMenu span {
-  color: white;
-  font-weight: 600;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Кнопка виходу */
-.userMenu .link {
-  background: rgba(255, 255, 255, 0.15);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.userMenu .link:hover {
-  background: rgba(255, 100, 100, 0.3);
-  border-color: rgba(255, 100, 100, 0.5);
-}
-
-/* Анімація появи */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.appBar {
-  animation: slideDown 0.5s ease-out;
-}
 
 /* Адаптивність */
 @media (max-width: 768px) {
@@ -160,42 +109,3 @@
   }
 }
 
-/* Іконки для посилань (опційно) */
-.link[href*="home"]::after {
-  content: "🏠";
-  margin-left: 8px;
-}
-
-.link[href*="products"]::after {
-  content: "🛍️";
-  margin-left: 8px;
-}
-
-.link[href*="about"]::after {
-  content: "ℹ️";
-  margin-left: 8px;
-}
-
-/* Ефект хвилі при кліку */
-.link {
-  position: relative;
-  overflow: hidden;
-}
-
-.link:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.3s, height 0.3s;
-}
-
-.link:active:after {
-  width: 100px;
-  height: 100px;
-}

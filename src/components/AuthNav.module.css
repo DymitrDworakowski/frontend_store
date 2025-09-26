@@ -1,6 +1,6 @@
 .authNav {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
@@ -9,110 +9,72 @@
 }
 
 .link {
-    color: white;
+    color: #333;
     text-align: center;
     text-decoration: none;
-    padding: 14px 32px;
-    border: 2px solid #3b82f6;
-    border-radius: 50px;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-    font-weight: 600;
-    font-size: 1rem;
+    padding: 12px 28px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    background: #fff;
+    font-weight: 500;
+    font-size: 0.95rem;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-    min-width: 140px;
-}
-
-.link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.6s;
-}
-
-.link:hover::before {
-    left: 100%;
+    min-width: 120px;
 }
 
 .link:hover {
-    color: white;
-    background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
-    border-color: #60a5fa;
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 
-        0 8px 25px rgba(59, 130, 246, 0.4),
-        0 2px 10px rgba(59, 130, 246, 0.2);
+    background: #f8f8f8;
+    border-color: #a0a0a0;
+    color: #000;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .link:active {
-    transform: translateY(-1px) scale(1.02);
-    transition: transform 0.1s;
+    transform: translateY(0);
+    background: #f0f0f0;
 }
 
 /* Різні стилі для Login та Register */
 .link[href*="login"] {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    border-color: #10b981;
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    background: #f8f8f8;
+    border-color: #d0d0d0;
 }
 
 .link[href*="login"]:hover {
-    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-    border-color: #34d399;
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+    background: #f0f0f0;
+    border-color: #a0a0a0;
 }
 
 .link[href*="register"] {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    border-color: #f59e0b;
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+    background: #333;
+    color: white;
+    border-color: #333;
 }
 
 .link[href*="register"]:hover {
-    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
-    border-color: #fbbf24;
-    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+    background: #000;
+    border-color: #000;
 }
 
-/* Іконки для посилань */
+/* Спрощені іконки для посилань */
 .link[href*="login"]::after {
     content: "→";
-    margin-left: 8px;
-    font-weight: bold;
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: all 0.3s;
+    margin-left: 6px;
+    font-weight: normal;
 }
 
-.link[href*="login"]:hover::after {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.link[href*="register"]::after {
+.link[href*="register"]::before {
     content: "👤";
-    margin-left: 8px;
-    opacity: 0;
-    transform: scale(0);
-    transition: all 0.3s;
-}
-
-.link[href*="register"]:hover::after {
-    opacity: 1;
-    transform: scale(1);
+    margin-right: 6px;
 }
 
 /* Анімація появи кнопок */
-@keyframes fadeInUp {
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(10px);
     }
     to {
         opacity: 1;
@@ -121,63 +83,47 @@
 }
 
 .link {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeIn 0.3s ease-out;
 }
 
 .link[href*="register"] {
-    animation-delay: 0.1s;
-}
-
-/* Ефект хвилі при кліку */
-.link::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s;
-}
-
-.link:active::after {
-    width: 100px;
-    height: 100px;
+    animation-delay: 0.05s;
 }
 
 /* Адаптивність */
 @media (max-width: 768px) {
     .authNav {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.8rem;
         margin: 1.5rem 0;
     }
     
     .link {
-        padding: 12px 28px;
-        min-width: 200px;
-        font-size: 0.95rem;
+        padding: 10px 24px;
+        min-width: 160px;
+        font-size: 0.9rem;
+        width: 100%;
+        max-width: 200px;
     }
 }
 
 @media (max-width: 480px) {
     .authNav {
-        gap: 0.8rem;
+        gap: 0.6rem;
+        margin: 1rem 0;
     }
     
     .link {
-        padding: 10px 24px;
-        min-width: 180px;
-        font-size: 0.9rem;
+        padding: 8px 20px;
+        min-width: 140px;
+        font-size: 0.85rem;
     }
 }
 
-/* Додатковий ефект для активної сторінки */
+/* Стиль для активної сторінки */
 .link.active {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    border-color: #ef4444;
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-    transform: scale(1.05);
+    background: #333;
+    color: white;
+    border-color: #333;
+    font-weight: 600;
 }

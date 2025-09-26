@@ -1,37 +1,321 @@
 .formContainer {
-  max-width: 400px;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  max-width: 450px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.1),
+    0 1px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
 }
+
+.formContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b);
+  border-radius: 20px 20px 0 0;
+}
+
+.formContainer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
 .formTitle {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 22px;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  position: relative;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(59, 130, 246, 0.1);
 }
+
+.formTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+  border-radius: 2px;
+}
+
 .form {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
 }
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.label::before {
+  content: '→';
+  color: #3b82f6;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.formGroup:focus-within .label::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.formGroup:focus-within .label {
+  color: #3b82f6;
+}
+
 .input, .textarea {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
+  margin-bottom: 0;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  resize: vertical;
+  min-height: 44px;
 }
+
+.input::placeholder, .textarea::placeholder {
+  color: #9ca3af;
+  transition: color 0.3s ease;
+}
+
+.input:hover, .textarea:hover {
+  border-color: #d1d5db;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
 .input:focus, .textarea:focus {
-  border-color: #007bff;
+  border-color: #3b82f6;
   outline: none;
-}   
+  background: white;
+  box-shadow: 
+    0 4px 20px rgba(59, 130, 246, 0.15),
+    0 0 0 3px rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+.input:focus::placeholder, .textarea:focus::placeholder {
+  color: #d1d5db;
+}
+
+.textarea {
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+/* Специфічні стилі для різних типів інпутів */
+.input[type="email"] {
+  background: linear-gradient(90deg, #f0f9ff 0%, #ffffff 100%);
+}
+
+.input[type="password"] {
+  background: linear-gradient(90deg, #fef7ff 0%, #ffffff 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.input[type="text"] {
+  background: linear-gradient(90deg, #f0fdf4 0%, #ffffff 100%);
+}
+
 .button {
-  padding: 10px;
-  background-color: #007bff;
+  padding: 1.2rem 2rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 15px rgba(59, 130, 246, 0.3),
+    0 1px 4px rgba(59, 130, 246, 0.1);
+  margin-top: 0.5rem;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s;
+}
+
+.button:hover::before {
+  left: 100%;
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+  transform: translateY(-3px);
+  box-shadow: 
+    0 8px 25px rgba(59, 130, 246, 0.4),
+    0 3px 10px rgba(59, 130, 246, 0.2);
+}
+
+.button:active {
+  transform: translateY(-1px);
+  transition: transform 0.1s;
+}
+
+.button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Іконка для кнопки */
+.button::after {
+  content: '🚀';
+  margin-left: 10px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.button:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Анімація появи форми */
+@keyframes formSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.formContainer {
+  animation: formSlideIn 0.6s ease-out;
+}
+
+/* Ефект валідації */
+.input:invalid:not(:focus):not(:placeholder-shown),
+.textarea:invalid:not(:focus):not(:placeholder-shown) {
+  border-color: #ef4444;
+  background: linear-gradient(90deg, #fef2f2 0%, #ffffff 100%);
+}
+
+.input:valid:not(:focus):not(:placeholder-shown),
+.textarea:valid:not(:focus):not(:placeholder-shown) {
+  border-color: #10b981;
+  background: linear-gradient(90deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  .formContainer {
+    margin: 1rem;
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .formTitle {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .input, .textarea {
+    padding: 0.9rem 1.1rem;
+  }
+  
+  .button {
+    padding: 1.1rem 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
+    border-radius: 12px;
+  }
+  
+  .formTitle {
+    font-size: 1.6rem;
+  }
+  
+  .input, .textarea {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .button {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Додаткові ефекти */
+.formGroup {
+  position: relative;
+}
+
+.formGroup::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+  transition: width 0.3s ease;
+}
+
+.formGroup:focus-within::after {
+  width: 100%;
 }

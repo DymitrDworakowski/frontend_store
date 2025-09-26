@@ -11,17 +11,25 @@ function ProductsList({ filters, onPageChange }) {
     keepPreviousData: true,
   });
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <div className={style.products}><Loader center /></div>;
   if (error)
     return <p>Error: {error instanceof Error ? error.message : String(error)}</p>;
+
+  // defensive data shape handling
+  const items = Array.isArray(data?.products) ? data.products : [];
+  const serverPage = Number(data?.currentPage || data?.page || 0) || 0;
+  const clientPage = Number(filters?.page || 0) || 0;
+  const pageToShow = clientPage || serverPage || 1;
+  const totalPages = Number(data?.totalPages || data?.pages || Math.ceil((data?.total || items.length) / (filters?.limit || 1))) || 1;
+
   return (
     <div className={style.products}>
       <h2 className={style.title}>Products</h2>
       <ul className={style.list}>
-        {data.products.map((product) => (
+        {items.map((product) => (
           <li key={product._id} className={style.item}>
             <p className={style.name}>Name: {product.title}</p>
-            <img src={product.imageUrl} alt={product.title} />
+            <img src={product.imageUrl || "/logo192.png"} alt={product.title} />
             <p className={style.description}>
               Description: {!product.description ? "-" : product.description}
             </p>
@@ -32,10 +40,9 @@ function ProductsList({ filters, onPageChange }) {
         ))}
       </ul>
       <Pagination
-        page={data.currentPage}
-        totalPages={data.totalPages}
+        page={pageToShow}
+        totalPages={totalPages}
         onChange={(p) => onPageChange?.(p)}
-        isLoading={isLoading}
       />
     </div>
   );

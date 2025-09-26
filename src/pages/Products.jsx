@@ -2,7 +2,7 @@ import ProductsList from "../components/ProductsList";
 import SearchBar from "../components/SearchBar";
 import FilterPanel from "../components/FilterPanel";
 
-const { useState } = require("react");
+const { useState, useCallback } = require("react");
 
 function Products() {
   const [filters, setFilters] = useState({
@@ -15,13 +15,25 @@ function Products() {
     sort: "createdAt:desc",
   });
 
+  const handleSearch = useCallback((val) => {
+    setFilters((f) => ({ ...f, search: val, page: 1 }));
+  }, []);
+
+  const handleFilterChange = useCallback((newFilters) => {
+    setFilters((f) => ({ ...f, ...newFilters, page: 1 }));
+  }, []);
+
+  const handlePageChange = useCallback((page) => {
+    setFilters((f) => ({ ...f, page }));
+  }, []);
+
   return (
     <>
-      <SearchBar onSearch={(val) => setFilters(f => ({ ...f, search: val, page: 1 }))} />
-      <FilterPanel onFilterChange={(newFilters) => setFilters(f => ({ ...f, ...newFilters, page: 1 }))} />
+      <SearchBar onSearch={handleSearch} />
+      <FilterPanel onFilterChange={handleFilterChange} />
       <ProductsList
         filters={filters}
-        onPageChange={(page) => setFilters(f => ({ ...f, page }))}
+        onPageChange={handlePageChange}
       />
     </>
   );

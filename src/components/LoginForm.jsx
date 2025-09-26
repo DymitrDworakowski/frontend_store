@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { adminLogin } from "../api/admin";
 import style from "./LoginForm.module.css";
+import Loader from "./Loader";
 
 function LoginForm() {
   const mutation = useMutation({
@@ -64,7 +65,7 @@ function LoginForm() {
         
         />
       </div>
-        <button type="submit" className={style.button}>{mutation.isLoading ? 'Logging in...' : 'Login'}</button>
+  <button type="submit" className={style.button}>{mutation.isLoading ? <Loader size={16} /> : 'Login'}</button>
     </form>
   );
 }

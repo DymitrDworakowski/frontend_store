@@ -6,6 +6,7 @@ import FilterPanel from "./FilterPanel";
 import FormItems from "./FormItems";
 import Pagination from "./Pagination";
 import style from "./AdminProducts.module.css";
+import Loader from "./Loader";
 
 function AdminProducts() {
   const queryClient = useQueryClient();
@@ -24,6 +25,19 @@ function AdminProducts() {
     maxPrice: "",
     sort: "createdAt:desc",
   });
+
+  // memoized handlers (declare unconditionally)
+  const handleSearch = React.useCallback((term) => {
+    setFilters((f) => ({ ...f, search: term, page: 1 }));
+  }, []);
+
+  const handleFilterChange = React.useCallback((newFilters) => {
+    setFilters((f) => ({ ...f, ...newFilters, page: 1 }));
+  }, []);
+
+  const handlePageChange = React.useCallback((p) => {
+    setFilters((f) => ({ ...f, page: p }));
+  }, []);
 
   // Fetch admin products with filters
   const { data, error, isLoading } = useQuery({
@@ -44,8 +58,14 @@ function AdminProducts() {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading)
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Loader center />
+      </div>
+    );
+  if (error)
+    return <div style={{ color: "var(--danger)" }}>Error: {error.message}</div>;
 
   // Handle delete action
   const handleDelete = (productId) => {
@@ -91,18 +111,9 @@ function AdminProducts() {
   return (
     <div className={style.container}>
       {/* Search + Filters */}
-      <SearchBar
-        initialValue={filters.search}
-        onSearch={(term) =>
-          setFilters((f) => ({ ...f, search: term, page: 1 }))
-        }
-      />
-      <FilterPanel
-        onFilterChange={(newFilters) =>
-          setFilters((f) => ({ ...f, ...newFilters, page: 1 }))
-        }
-        autoApply={true}
-      />
+      {/* memoized handlers to avoid child re-renders */}
+      <SearchBar initialValue={filters.search} onSearch={handleSearch} />
+      <FilterPanel onFilterChange={handleFilterChange} autoApply={true} />
 
       {/* Add new product form */}
       <FormItems
@@ -119,22 +130,37 @@ function AdminProducts() {
           <li key={product._id} className={style.productItem}>
             <div className={style.productTop}>
               <img
-                src={product.imageUrl || '/logo192.png'}
+                src={product.imageUrl || "/logo192.png"}
                 alt={product.title}
                 className={style.productImage}
               />
 
               <div className={style.productBody}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: 12,
+                  }}
+                >
                   <div>
                     <h3 className={style.productName}>{product.title}</h3>
-                    <p className={style.description}>{product.description || 'No description'}</p>
+                    <p className={style.description}>
+                      {product.description || "No description"}
+                    </p>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div className={style.productPrice}>{product.price}</div>
+                  <div style={{ textAlign: "right" }}>
+                    <div className={style.productPrice}>
+                      {" "}
+                      Price: {product.price}
+                    </div>
                     <div className={style.productMeta}>
-                      <span className={style.badge}>{product.category || '—'}</span>
-                      <span style={{ color: 'var(--muted)', fontSize: 12 }}>Stock: {product.stock ?? '-'}</span>
+                      <span className={style.badge}>
+                        {product.category || "—"}
+                      </span>
+                      <span style={{ color: "var(--muted)", fontSize: 12 }}>
+                        Stock: {product.stock ?? "-"}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -157,11 +183,21 @@ function AdminProducts() {
             </div>
 
             {editingId === product._id && onOpen && (
-              <div className={style.editFormModal} role="dialog" aria-modal="true">
+              <div
+                className={style.editFormModal}
+                role="dialog"
+                aria-modal="true"
+              >
                 <div className={style.modalContent}>
                   <div className={style.modalHeader}>
                     <h3 className={style.modalTitle}>Edit product</h3>
-                    <button aria-label="Close edit" className={style.modalClose} onClick={stopEditing}>&times;</button>
+                    <button
+                      aria-label="Close edit"
+                      className={style.modalClose}
+                      onClick={stopEditing}
+                    >
+                      &times;
+                    </button>
                   </div>
                   <div className={style.modalBody}>
                     <FormItems
@@ -175,7 +211,12 @@ function AdminProducts() {
                     />
                   </div>
                   <div className={style.modalFooter}>
-                    <button className={`${style.btn} ${style.cancelButton}`} onClick={stopEditing}>Cancel</button>
+                    <button
+                      className={`${style.btn} ${style.cancelButton}`}
+                      onClick={stopEditing}
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </div>
               </div>
@@ -189,11 +230,10 @@ function AdminProducts() {
         <Pagination
           page={filters.page}
           totalPages={totalPages}
-          onChange={(p) => setFilters((f) => ({ ...f, page: p }))}
+          onChange={handlePageChange}
         />
       </div>
     </div>
   );
 }
 export default AdminProducts;
-

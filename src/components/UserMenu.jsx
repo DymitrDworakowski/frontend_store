@@ -1,6 +1,7 @@
 import { useMutation ,useQueryClient} from "@tanstack/react-query";
 import { logout } from "../api/admin";
 import style from "./UserMenu.module.css";
+import Loader from "./Loader";
 function UserMenu() {
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -32,7 +33,7 @@ function UserMenu() {
     <div>
       <p className={style.welcomeMessage}>Welcome, {user?.name || "User"}!</p>
       <button className={style.logoutButton} onClick={handleLogout} disabled={mutation.isLoading}>
-        {mutation.isLoading ? "Logging out..." : "Logout"}
+        {mutation.isLoading ? <Loader size={16} /> : 'Logout'}
       </button>
     </div>
   );

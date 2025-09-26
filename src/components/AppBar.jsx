@@ -12,8 +12,8 @@ function AppBar() {
   return (
     <header className={style.appBar}>
       <div className={style.inner}>
-        <NavLink to="/" className={style.brand}>Store</NavLink>
-        <NavLink to="/products" className={style.link}>Products</NavLink>
+        <NavLink to="/" className={style.link}>Store</NavLink>
+        {/* <NavLink to="/products" className={style.link}>Products</NavLink> */}
         <div className={style.spacer} />
         {isAuthenticated ? <UserMenu className={style.userMenu} /> : <AuthNav />}
       </div>
