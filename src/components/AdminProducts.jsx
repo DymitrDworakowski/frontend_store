@@ -15,7 +15,6 @@ function AdminProducts() {
   const [editingData, setEditingData] = React.useState(null);
   const [onOpen, setOnOpen] = React.useState(false);
 
-  // Filters (kept local to admin panel)
   const [filters, setFilters] = React.useState({
     page: 1,
     limit: 10,
@@ -26,7 +25,6 @@ function AdminProducts() {
     sort: "createdAt:desc",
   });
 
-  // memoized handlers (declare unconditionally)
   const handleSearch = React.useCallback((term) => {
     setFilters((f) => ({ ...f, search: term, page: 1 }));
   }, []);
@@ -39,14 +37,12 @@ function AdminProducts() {
     setFilters((f) => ({ ...f, page: p }));
   }, []);
 
-  // Fetch admin products with filters
   const { data, error, isLoading } = useQuery({
     queryKey: ["adminProducts", filters],
     queryFn: () => getAdminProducts(filters),
     keepPreviousData: true,
   });
 
-  // Mutation for deleting an item
   const deleteMutation = useMutation({
     mutationFn: deleteItem,
     onSuccess: () => {
@@ -60,22 +56,23 @@ function AdminProducts() {
 
   if (isLoading)
     return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div className={style.loaderContainer}>
         <Loader center />
       </div>
     );
+    
   if (error)
-    return <div style={{ color: "var(--danger)" }}>Error: {error.message}</div>;
+    return <div className={style.error}>Error: {error.message}</div>;
 
-  // Handle delete action
   const handleDelete = (productId) => {
-    deleteMutation.mutate({
-      token: localStorage.getItem("token"),
-      itemId: productId,
-    });
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      deleteMutation.mutate({
+        token: localStorage.getItem("token"),
+        itemId: productId,
+      });
+    }
   };
 
-  // Start editing an item
   const handleStartEdit = (product) => {
     setEditingId(product._id);
     setEditingData({
@@ -93,10 +90,9 @@ function AdminProducts() {
   const stopEditing = () => {
     setEditingId(null);
     setEditingData(null);
-    setOnOpen(false); // Ensure modal closes
+    setOnOpen(false);
   };
 
-  // Support different shapes: { products: [...] } or array
   const items = Array.isArray(data?.products)
     ? data.products
     : Array.isArray(data)
@@ -110,123 +106,97 @@ function AdminProducts() {
 
   return (
     <div className={style.container}>
-      {/* Search + Filters */}
-      {/* memoized handlers to avoid child re-renders */}
-      <SearchBar initialValue={filters.search} onSearch={handleSearch} />
-      <FilterPanel onFilterChange={handleFilterChange} autoApply={true} />
+      <div className={style.header}>
+        <h1 className={style.title}>Product Management</h1>
+        <div className={style.controls}>
+          <SearchBar initialValue={filters.search} onSearch={handleSearch} />
+          <FilterPanel onFilterChange={handleFilterChange} autoApply={true} />
+        </div>
+      </div>
 
-      {/* Add new product form */}
-      <FormItems
-        onSuccess={() => {
-          queryClient.invalidateQueries(["adminProducts"]);
-        }}
-      />
-      <h2 className={style.title}>Admin Products</h2>
-      <ul className={style.productList}>
-        {items.length === 0 && (
-          <div className={style.emptyState}>No products found.</div>
-        )}
-        {items.map((product) => (
-          <li key={product._id} className={style.productItem}>
-            <div className={style.productTop}>
-              <img
-                src={product.imageUrl || "/logo192.png"}
-                alt={product.title}
-                className={style.productImage}
-              />
+      <div >
+        <FormItems
+          onSuccess={() => {
+            queryClient.invalidateQueries(["adminProducts"]);
+          }}
+        />
+        <div className={style.stats}>
+          Total products: {data?.total ?? data?.count ?? items.length}
+        </div>
+      </div>
 
-              <div className={style.productBody}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: 12,
-                  }}
+      <div className={style.productsGrid}>
+        {items.length === 0 ? (
+          <div className={style.emptyState}>No products found</div>
+        ) : (
+          items.map((product) => (
+            <div key={product._id} className={style.productCard}>
+              <div className={style.cardHeader}>
+                <img
+                  src={product.imageUrl || "/logo192.png"}
+                  alt={product.title}
+                  className={style.productImage}
+                />
+                <div className={style.productInfo}>
+                  <h3 className={style.productName}>{product.title}</h3>
+                  <div className={style.price}>${product.price}</div>
+                </div>
+              </div>
+
+              <div className={style.cardBody}>
+                <p className={style.description}>
+                  {product.description || "No description available"}
+                </p>
+                <div className={style.meta}>
+                  <span className={style.category}>{product.category || "—"}</span>
+                  <span className={style.stock}>Stock: {product.stock ?? "0"}</span>
+                </div>
+              </div>
+
+              <div className={style.cardActions}>
+                <button
+                  className={style.editBtn}
+                  onClick={() => handleStartEdit(product)}
                 >
-                  <div>
-                    <h3 className={style.productName}>{product.title}</h3>
-                    <p className={style.description}>
-                      {product.description || "No description"}
-                    </p>
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    <div className={style.productPrice}>
-                      {" "}
-                      Price: {product.price}
+                  Edit
+                </button>
+                <button
+                  className={style.deleteBtn}
+                  onClick={() => handleDelete(product._id)}
+                >
+                  Delete
+                </button>
+              </div>
+
+              {editingId === product._id && onOpen && (
+                <div className={style.modalOverlay}>
+                  <div className={style.modal}>
+                    <div className={style.modalHeader}>
+                      <h2>Edit Product</h2>
+                      <button className={style.closeBtn} onClick={stopEditing}>
+                        ×
+                      </button>
                     </div>
-                    <div className={style.productMeta}>
-                      <span className={style.badge}>
-                        {product.category || "—"}
-                      </span>
-                      <span style={{ color: "var(--muted)", fontSize: 12 }}>
-                        Stock: {product.stock ?? "-"}
-                      </span>
+                    <div className={style.modalContent}>
+                      <FormItems
+                        mode="edit"
+                        itemId={editingId}
+                        initialData={editingData}
+                        onSuccess={() => {
+                          queryClient.invalidateQueries(["adminProducts"]);
+                          stopEditing();
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
+          ))
+        )}
+      </div>
 
-            <div className={style.actions}>
-              <button
-                className={`${style.btn} ${style.editButton}`}
-                onClick={() => handleStartEdit(product)}
-              >
-                Edit
-              </button>
-              <button
-                className={`${style.btn} ${style.deleteButton}`}
-                onClick={() => handleDelete(product._id)}
-              >
-                Delete
-              </button>
-            </div>
-
-            {editingId === product._id && onOpen && (
-              <div
-                className={style.editFormModal}
-                role="dialog"
-                aria-modal="true"
-              >
-                <div className={style.modalContent}>
-                  <div className={style.modalHeader}>
-                    <h3 className={style.modalTitle}>Edit product</h3>
-                    <button
-                      aria-label="Close edit"
-                      className={style.modalClose}
-                      onClick={stopEditing}
-                    >
-                      &times;
-                    </button>
-                  </div>
-                  <div className={style.modalBody}>
-                    <FormItems
-                      mode="edit"
-                      itemId={editingId}
-                      initialData={editingData}
-                      onSuccess={() => {
-                        queryClient.invalidateQueries(["adminProducts"]);
-                        stopEditing();
-                      }}
-                    />
-                  </div>
-                  <div className={style.modalFooter}>
-                    <button
-                      className={`${style.btn} ${style.cancelButton}`}
-                      onClick={stopEditing}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-
-      <div style={{ marginTop: 12 }}>
-        <div>Total products: {data?.total ?? data?.count ?? items.length}</div>
+      <div className={style.paginationContainer}>
         <Pagination
           page={filters.page}
           totalPages={totalPages}
@@ -236,4 +206,5 @@ function AdminProducts() {
     </div>
   );
 }
+
 export default AdminProducts;

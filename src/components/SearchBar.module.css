@@ -1,282 +1,161 @@
 .container {
-  margin-bottom: 2rem;
-  display: flex;
-  gap: 1rem;
-  position: relative;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-.searchWrapper {
+.searchGroup {
   position: relative;
-  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.searchGroup:focus-within {
+  border-color: #666;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.searchGroup:hover {
+  border-color: #a0a0a0;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  color: #999;
+  z-index: 1;
 }
 
 .input {
-  flex: 1;
-  padding: 1rem 1.5rem 1rem 3rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 16px;
-  font-size: 1.1rem;
-  background: rgba(255, 255, 255, 0.95);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 4px 20px rgba(0, 0, 0, 0.08),
-    0 1px 4px rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(10px);
   width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 2.2rem;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.95rem;
+  background: transparent;
+  font-family: inherit;
+  outline: none;
+  color: #333;
 }
 
 .input::placeholder {
-  color: #9ca3af;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.input:hover {
-  border-color: #cbd5e1;
-  transform: translateY(-2px);
-  box-shadow: 
-    0 6px 25px rgba(0, 0, 0, 0.12),
-    0 2px 6px rgba(0, 0, 0, 0.06);
-}
-
-.input:focus {
-  border-color: #3b82f6;
-  outline: none;
-  background: white;
-  box-shadow: 
-    0 8px 30px rgba(59, 130, 246, 0.2),
-    0 3px 8px rgba(59, 130, 246, 0.1),
-    inset 0 0 0 2px rgba(59, 130, 246, 0.05);
-  transform: translateY(-3px);
-}
-
-.input:focus::placeholder {
-  color: #d1d5db;
-  transform: translateX(10px);
-}
-
-/* Іконка лупи */
-.searchIcon {
-  position: absolute;
-  left: 1.2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #9ca3af;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-  z-index: 2;
-}
-
-.input:focus + .searchIcon {
-  color: #3b82f6;
-  transform: translateY(-50%) scale(1.1);
+  color: #999;
 }
 
 .clearButton {
-  padding: 0 1.5rem;
-  border: 2px solid #e5e7eb;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  color: #6b7280;
-  cursor: pointer;
-  border-radius: 16px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  height: 56px;
+  position: absolute;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  box-shadow: 
-    0 4px 15px rgba(0, 0, 0, 0.08),
-    0 1px 4px rgba(0, 0, 0, 0.04);
-  min-width: 120px;
-  position: relative;
-  overflow: hidden;
-}
-
-.clearButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-  transition: left 0.6s;
-}
-
-.clearButton:hover::before {
-  left: 100%;
+  cursor: pointer;
+  color: #999;
+  transition: all 0.2s ease;
+  padding: 0;
 }
 
 .clearButton:hover {
-  border-color: #3b82f6;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  color: #3b82f6;
-  transform: translateY(-2px);
-  box-shadow: 
-    0 6px 25px rgba(59, 130, 246, 0.15),
-    0 2px 8px rgba(59, 130, 246, 0.1);
+  background: #f0f0f0;
+  color: #666;
 }
 
 .clearButton:active {
-  transform: translateY(0);
-  transition: transform 0.1s;
-}
-
-.clearButton:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.clearButton:disabled:hover {
-  border-color: #e5e7eb;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  color: #6b7280;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-/* Іконка для кнопки */
-.clearButton::after {
-  content: '×';
-  font-size: 1.3rem;
-  font-weight: bold;
-  opacity: 0.8;
-  transition: all 0.3s ease;
-}
-
-.clearButton:hover::after {
-  opacity: 1;
-  transform: scale(1.2);
+  background: #e0e0e0;
 }
 
 /* Анімація появи */
-@keyframes searchSlideIn {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-20px) scale(0.95);
+    transform: translateY(-5px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
 .container {
-  animation: searchSlideIn 0.6s ease-out;
-}
-
-/* Ефект хвилі при кліку */
-.input:active, .clearButton:active {
-  transform: scale(0.98);
-}
-
-/* Додаткові декоративні елементи */
-.container::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  background: linear-gradient(135deg, #3b82f6, #10b981, #f59e0b);
-  border-radius: 20px;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.container:focus-within::before {
-  opacity: 0.1;
+  animation: fadeIn 0.3s ease-out;
 }
 
 /* Адаптивність */
 @media (max-width: 768px) {
   .container {
-    flex-direction: column;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .input {
-    padding: 0.9rem 1.2rem 0.9rem 2.8rem;
-    font-size: 1rem;
-    border-radius: 14px;
-  }
-  
-  .searchIcon {
-    left: 1rem;
-    font-size: 1.1rem;
-  }
-  
-  .clearButton {
-    height: 50px;
-    border-radius: 14px;
-    min-width: auto;
-    padding: 0 1.2rem;
+    max-width: none;
+    padding: 0.5rem 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .container {
-    gap: 0.6rem;
-    margin-bottom: 1rem;
-  }
-  
   .input {
-    padding: 0.8rem 1rem 0.8rem 2.5rem;
-    font-size: 0.95rem;
-    border-radius: 12px;
+    padding: 0.6rem 2.2rem 0.6rem 2rem;
+    font-size: 0.9rem;
   }
   
   .searchIcon {
-    left: 0.8rem;
-    font-size: 1rem;
+    left: 0.6rem;
+    width: 16px;
+    height: 16px;
   }
   
   .clearButton {
-    height: 46px;
-    border-radius: 12px;
-    padding: 0 1rem;
-    font-size: 0.9rem;
+    right: 0.4rem;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .clearButton svg {
+    width: 14px;
+    height: 14px;
   }
 }
 
-/* Ефект для результатів пошуку */
-.searchResults {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: white;
-  border-radius: 0 0 16px 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  margin-top: 5px;
-  z-index: 1000;
-  overflow: hidden;
+/* Додаткові стилі для покращення UX */
+.input:focus {
+  box-shadow: none; /* Видаляємо стандартний outline, оскільки вже є на батьківському елементі */
 }
 
-/* Індикатор завантаження */
-.loading::after {
-  content: '';
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  border: 2px solid transparent;
-  border-top: 2px solid #3b82f6;
-  border-radius: 50%;
+/* Стилі для стану завантаження (опційно) */
+.searchGroup.loading .searchIcon {
   animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: translateY(-50%) rotate(0deg); }
-  100% { transform: translateY(-50%) rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Стилі для темної теми (опційно) */
+@media (prefers-color-scheme: dark) {
+  .searchGroup {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+  
+  .input {
+    color: #fff;
+  }
+  
+  .input::placeholder {
+    color: #aaa;
+  }
+  
+  .searchIcon {
+    color: #aaa;
+  }
+  
+  .clearButton:hover {
+    background: #444;
+    color: #ccc;
+  }
 }

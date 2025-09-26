@@ -49,18 +49,97 @@ function FormItems({ initialData = {}, mode = 'add', itemId, onSuccess }) {
     <div className={style.formContainer}>
       <h2 className={style.formTitle}>{mode === 'edit' ? 'Edit Product' : 'Add New Product'}</h2>
       <form onSubmit={handleSubmit} className={style.form}>
-        <input className={style.input} defaultValue={initialData.title || ''} type="text" name="title" placeholder="Product Title" required />
-        <input className={style.input} defaultValue={initialData.price ?? ''} type="number" name="price" placeholder="Price" />
-        <input className={style.input} defaultValue={initialData.stock ?? ''} type="number" name="stock" placeholder="Stock" />
-        <input className={style.input} defaultValue={initialData.category || ''} type="text" name="category" placeholder="Category" />
-        <input className={style.input} defaultValue={initialData.barcode || ''} type="text" name="barcode" placeholder="Barcode" />
-        <input className={style.input} defaultValue={initialData.imageUrl || ''} type="text" name="imageUrl" placeholder="Image URL" />
-        <textarea className={style.textarea} defaultValue={initialData.description || ''} name="description" placeholder="Description" />
+        <div className={style.formGroup}>
+          <label className={style.label} htmlFor="title">Product Title</label>
+          <input 
+            className={style.input} 
+            id="title"
+            defaultValue={initialData.title || ''} 
+            type="text" 
+            name="title" 
+            placeholder="Enter product title" 
+            required 
+          />
+        </div>
+
+        <div className={style.formGroup}>
+          <label className={style.label} htmlFor="price">Price</label>
+          <input 
+            className={style.input} 
+            id="price"
+            defaultValue={initialData.price ?? ''} 
+            type="number" 
+            name="price" 
+            placeholder="Enter price" 
+          />
+        </div>
+
+        <div className={style.formGroup}>
+          <label className={style.label} htmlFor="stock">Stock</label>
+          <input 
+            className={style.input} 
+            id="stock"
+            defaultValue={initialData.stock ?? ''} 
+            type="number" 
+            name="stock" 
+            placeholder="Enter stock quantity" 
+          />
+        </div>
+
+        <div className={style.formGroup}>
+          <label className={style.label} htmlFor="category">Category</label>
+          <input 
+            className={style.input} 
+            id="category"
+            defaultValue={initialData.category || ''} 
+            type="text" 
+            name="category" 
+            placeholder="Enter category" 
+          />
+        </div>
+
+        <div className={style.formGroup}>
+          <label className={style.label} htmlFor="barcode">Barcode</label>
+          <input 
+            className={style.input} 
+            id="barcode"
+            defaultValue={initialData.barcode || ''} 
+            type="text" 
+            name="barcode" 
+            placeholder="Enter barcode" 
+          />
+        </div>
+
+        <div className={style.formGroup}>
+          <label className={style.label} htmlFor="imageUrl">Image URL</label>
+          <input 
+            className={style.input} 
+            id="imageUrl"
+            defaultValue={initialData.imageUrl || ''} 
+            type="text" 
+            name="imageUrl" 
+            placeholder="Enter image URL" 
+          />
+        </div>
+
+        <div className={style.formGroup}>
+          <label className={style.label} htmlFor="description">Description</label>
+          <textarea 
+            className={style.textarea} 
+            id="description"
+            defaultValue={initialData.description || ''} 
+            name="description" 
+            placeholder="Enter product description" 
+            rows={4}
+          />
+        </div>
+
         <button className={style.button} type="submit" disabled={mutation.isLoading}>
-          {mutation.isLoading ? (mode === 'edit' ? <Loader size={16} /> : <Loader size={16} />) : (mode === 'edit' ? 'Save' : 'Add Product')}
+          {mutation.isLoading ? <Loader size={16} /> : (mode === 'edit' ? 'Save Changes' : 'Add Product')}
         </button>
       </form>
     </div>
   );
 }
+
 export default FormItems;
