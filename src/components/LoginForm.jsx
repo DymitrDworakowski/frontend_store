@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { adminLogin } from "../api/admin";
+import style from "./LoginForm.module.css";
 
 function LoginForm() {
   const mutation = useMutation({
@@ -26,38 +27,44 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Username:</label>
+      <form onSubmit={handleSubmit} className={style.form}>
+      <div className={style.formGroup}>
+        <label htmlFor="username" className={style.label}>Username:</label>
         <input
+        
           type="text"
           id="username"
           name="username"
           placeholder="Enter your username"
           required
+          className={style.input}
         />
       </div>
-      <div>
-        <label htmlFor="email">Email:</label>
+      <div className={style.formGroup}>
+        <label htmlFor="email" className={style.label}>Email:</label>
         <input
           type="email"
           id="email"
           name="email"
           placeholder="Enter your email"
           required
+          className={style.input}
         />
       </div>
-      <div>
-        <label htmlFor="password">Password:</label>
+      <div className={style.formGroup}>
+        <label htmlFor="password" className={style.label}>Password:</label>
         <input
+
           type="password"
           id="password"
           name="password"
           placeholder="Enter your password"
           required
+          className={style.input}
+        
         />
       </div>
-      <button type="submit">Login</button>
+        <button type="submit" className={style.button}>{mutation.isLoading ? 'Logging in...' : 'Login'}</button>
     </form>
   );
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import style from "./SearchBar.module.css";
 
 function SearchBar({ onSearch, debounceMs = 400, initialValue = "" }) {
   const [value, setValue] = useState(initialValue);
@@ -21,16 +22,16 @@ function SearchBar({ onSearch, debounceMs = 400, initialValue = "" }) {
   };
 
   return (
-    <div style={{ marginBottom: "1rem", display: "flex", gap: "0.5rem" }}>
+    <div className={style.container}>
       <input
         type="text"
         placeholder="Search products..."
         value={value}
         onChange={handleChange}
-        style={{ flex: 1, padding: "0.5rem" }}
+        className={style.input}
       />
       {value && (
-        <button type="button" onClick={handleClear}>
+        <button type="button" onClick={handleClear} className={style.clearButton}>
           Clear
         </button>
       )}
