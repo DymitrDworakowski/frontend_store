@@ -1,4 +1,4 @@
-const API_URL = "https://backendstore-production.up.railway.app";
+import client, { authHeader } from "./client";
 
 export async function getProducts({
   page = 1,
@@ -9,7 +9,6 @@ export async function getProducts({
   maxPrice,
   sort = "createdAt:desc",
 }) {
-  // Ensure sort is always a string
   const sortParam =
     typeof sort === "string" && sort.length > 0 ? sort : "createdAt:desc";
   const params = new URLSearchParams();
@@ -22,34 +21,36 @@ export async function getProducts({
   if (maxPrice) params.append("maxPrice", maxPrice);
   params.append("sort", sortParam);
 
-  const res = await fetch(`${API_URL}/products?${params.toString()}`, {
-    method: "GET",
-  });
-
-  if (!res.ok) throw new Error("Failed to fetch products");
-  return res.json();
+  try {
+    const res = await client.get(`/products?${params.toString()}`);
+    return res.data;
+  } catch (err) {
+    throw new Error(err?.response?.data?.message || "Failed to fetch products");
+  }
 }
 
 export async function getCartItems(token) {
-  const res = await fetch(`${API_URL}/cart`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  if (!res.ok) throw new Error("Failed to fetch cart items");
-  return res.json();
+  try {
+    const res = await client.get(`/cart`, { headers: authHeader(token) });
+    return res.data;
+  } catch (err) {
+    throw new Error(
+      err?.response?.data?.message || "Failed to fetch cart items"
+    );
+  }
 }
-export async function addToCart(token, productId, quantity = 1) {
-  console.log(token, productId, quantity);
-  const res = await fetch(`${API_URL}/cart/add`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ productId, quantity }),
-  });
-  if (!res.ok) throw new Error("Failed to add item to cart");
-  return res.json();
+
+export async function addToCart({token,productId,quantity}) {
+  try {
+    const res = await client.post(
+      `/cart/add`,
+      { productId, quantity },
+      { headers: authHeader(token) }
+    );
+    return res.data;
+  } catch (err) {
+    throw new Error(
+      err?.response?.data?.message || "Failed to add item to cart"
+    );
+  }
 }

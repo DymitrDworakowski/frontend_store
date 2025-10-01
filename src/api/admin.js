@@ -1,78 +1,67 @@
-const API_URL = "https://backendstore-production.up.railway.app";
+import client, { authHeader } from "./client";
 
 export async function userRegister(data) {
-  const res = await fetch(`${API_URL}/users/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) throw new Error("Failed to register");
-  return res.json();
+  try {
+    const res = await client.post(`/users/register`, data);
+    return res.data;
+  } catch (err) {
+    throw new Error(err?.response?.data?.message || "Failed to register");
+  }
 }
 
 export async function adminLogin(credentials) {
-  const res = await fetch(`${API_URL}/users/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
-  if (!res.ok) throw new Error("Failed to login");
-  return res.json();
+  try {
+    const res = await client.post(`/users/login`, credentials);
+    return res.data;
+  } catch (err) {
+    throw new Error(err?.response?.data?.message || "Failed to login");
+  }
 }
 
 export async function logout(token) {
-  const res = await fetch(`${API_URL}/users/logout`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({}),
-  });
-  if (!res.ok) throw new Error("Failed to logout");
-  return res.json();
+  try {
+    const res = await client.post(
+      `/users/logout`,
+      {},
+      { headers: authHeader(token) }
+    );
+    return res.data;
+  } catch (err) {
+    throw new Error(err?.response?.data?.message || "Failed to logout");
+  }
 }
 
 export async function addItems({ token, itemData }) {
-  const res = await fetch(`${API_URL}/admin/products`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(itemData),
-  });
-  if (!res.ok) throw new Error("Failed to add item");
-  return res.json();
+  try {
+    const res = await client.post(`/admin/products`, itemData, {
+      headers: authHeader(token),
+    });
+    return res.data;
+  } catch (err) {
+    throw new Error(err?.response?.data?.message || "Failed to add item");
+  }
 }
 
 export async function editItem({ token, itemId, itemData }) {
-  const res = await fetch(`${API_URL}/admin/products/${itemId}`, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(itemData),
-  });
-  if (!res.ok) throw new Error("Failed to edit item");
-  return res.json();
+  try {
+    const res = await client.put(`/admin/products/${itemId}`, itemData, {
+      headers: authHeader(token),
+    });
+    return res.data;
+  } catch (err) {
+    throw new Error(err?.response?.data?.message || "Failed to edit item");
+  }
 }
 
 export async function deleteItem({ token, itemId }) {
-  const res = await fetch(`${API_URL}/admin/products/${itemId}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  });
-  if (!res.ok) throw new Error("Failed to delete item");
-  return res.json();
+  try {
+    const res = await client.delete(`/admin/products/${itemId}`, {
+      headers: authHeader(token),
+    });
+    return res.data;
+  } catch (err) {
+    throw new Error(err?.response?.data?.message || "Failed to delete item");
+  }
 }
 
 export async function getAdminProducts({
@@ -84,7 +73,6 @@ export async function getAdminProducts({
   maxPrice,
   sort = "createdAt:desc",
 }) {
-  // Ensure sort is always a string
   const sortParam =
     typeof sort === "string" && sort.length > 0 ? sort : "createdAt:desc";
   const params = new URLSearchParams();
@@ -97,10 +85,10 @@ export async function getAdminProducts({
   if (maxPrice) params.append("maxPrice", maxPrice);
   params.append("sort", sortParam);
 
-  const res = await fetch(`${API_URL}/products?${params.toString()}`, {
-    method: "GET",
-  });
-
-  if (!res.ok) throw new Error("Failed to fetch products");
-  return res.json();
+  try {
+    const res = await client.get(`/products?${params.toString()}`);
+    return res.data;
+  } catch (err) {
+    throw new Error(err?.response?.data?.message || "Failed to fetch products");
+  }
 }
