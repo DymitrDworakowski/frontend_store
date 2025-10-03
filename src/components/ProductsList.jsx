@@ -4,6 +4,7 @@ import style from "./ProductsList.module.css";
 import Pagination from "./Pagination";
 import CartAdd from "./CartAdd";
 import Loader from "./Loader";
+import AddComment from "./AddComment";
 
 function ProductsList({ filters, onPageChange }) {
   const { data, isLoading, error } = useQuery({
@@ -61,6 +62,9 @@ function ProductsList({ filters, onPageChange }) {
                 <p className={style.stock}>
                   {product.stock ? `${product.stock} in stock` : "Out of stock"}
                 </p>
+              </div>
+              <div>
+              {token && <AddComment token={token} productId={product._id} />}
               </div>
               {token && (
                 <div className={style.cartAction}>
