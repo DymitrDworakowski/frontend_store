@@ -4,7 +4,8 @@ import { NavLink } from "react-router-dom";
 function Footer() {
   return (
     <footer className={style.footer}>
-      <p>© 2024 My Store. All rights reserved.</p>
+      <p>© 2025 My Store. All rights reserved.</p>
+      <p>Created by Dymitr Dworakowski</p>
       <nav className={style.nav}>
         <NavLink 
           to="/about" 
