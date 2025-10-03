@@ -54,3 +54,18 @@ export async function addToCart({token,productId,quantity}) {
     );
   }
 }
+
+export async function removeFromCart({token,productId}) {
+  try {
+    const res = await client.post(
+      `/cart/remove`,
+      { productId },
+      { headers: authHeader(token) }
+    );
+    return res.data;
+  } catch (err) {
+    throw new Error(
+      err?.response?.data?.message || "Failed to remove item from cart"
+    );
+  }
+}

@@ -10,6 +10,9 @@ function AdminLogin() {
     mutationFn: adminLogin,
     onSuccess: (data) => {
       localStorage.setItem("token", data.token);
+      try {
+        window.dispatchEvent(new CustomEvent('authChange', { detail: { user: data.user ?? null, token: data.token } }));
+      } catch {}
       alert("Login successful");
       navigate("/admin/panel"); // Переносимо навігацію сюди після успішного логіну
     },

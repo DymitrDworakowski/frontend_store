@@ -1,14 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
 import { adminLogin } from "../api/admin";
+import { useNavigate } from "react-router-dom";
 import style from "./LoginForm.module.css";
 import Loader from "./Loader";
 
 function LoginForm() {
+  const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: adminLogin,
     onSuccess: (data) => {
       localStorage.setItem("token", data.token);
+      // notify same-window listeners about token presence
+      try {
+        window.dispatchEvent(new CustomEvent('authChange', { detail: { user: data.user ?? null, token: data.token } }));
+      } catch {}
       alert("Login successful");
+      navigate("/");
     },
     onError: (error) => {
       alert(`Login failed: ${error.message}`);

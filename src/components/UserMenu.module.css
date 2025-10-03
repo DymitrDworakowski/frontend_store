@@ -1,269 +1,309 @@
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.userDetails {
+  min-width: 0;
+}
+
 .welcomeMessage {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  color: #1f2937;
-  font-weight: 600;
-  text-align: center;
-  position: relative;
-  padding: 1rem 2rem;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border-radius: 16px;
-  border: 2px solid rgba(59, 130, 246, 0.2);
-  box-shadow: 
-    0 4px 20px rgba(59, 130, 246, 0.1),
-    0 1px 4px rgba(59, 130, 246, 0.05);
-  backdrop-filter: blur(10px);
-  animation: welcomeSlideIn 0.6s ease-out;
-}
-
-.welcomeMessage::before {
-  content: '👋';
-  margin-right: 12px;
-  font-size: 1.4rem;
-  animation: wave 2s ease-in-out infinite;
-}
-
-.welcomeMessage::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b);
-  border-radius: 16px 16px 0 0;
-}
-
-@keyframes welcomeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes wave {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(10deg); }
-  75% { transform: rotate(-10deg); }
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0 0 0.1rem 0;
+  font-weight: 500;
 }
 
 .userName {
-  color: #3b82f6;
-  font-weight: 700;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  -webkit-background-clip: text; /* ensure compatibility when using background clip on text elsewhere */
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.cartLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: #fff;
+  color: #333;
+  border: 1px solid #d0d0d0;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.cartLink:hover {
+  background: #f8f8f8;
+  border-color: #a0a0a0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cartLink:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .logoutButton {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  color: white;
-  border: none;
-  padding: 0.8rem 1.8rem;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 
-    0 4px 15px rgba(239, 68, 68, 0.3),
-    0 1px 4px rgba(239, 68, 68, 0.1);
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 0.5rem;
-  min-width: 120px;
-  justify-content: center;
+  padding: 0.6rem 1rem;
+  background: #fff;
+  color: #d32f2f;
+  border: 1px solid #d32f2f;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  min-height: 40px;
 }
 
-.logoutButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s;
+.logoutButton:hover:not(:disabled) {
+  background: #d32f2f;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(211, 47, 47, 0.2);
 }
 
-.logoutButton:hover::before {
-  left: 100%;
-}
-
-.logoutButton:hover {
-  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-  transform: translateY(-2px);
-  box-shadow: 
-    0 6px 25px rgba(239, 68, 68, 0.4),
-    0 3px 10px rgba(239, 68, 68, 0.2);
-}
-
-.logoutButton:active {
+.logoutButton:active:not(:disabled) {
   transform: translateY(0);
-  transition: transform 0.1s;
+  box-shadow: 0 1px 2px rgba(211, 47, 47, 0.2);
 }
 
-.logoutButton::after {
-  content: '🚪';
-  font-size: 1.1rem;
-  opacity: 0.9;
-  transition: all 0.3s ease;
+.logoutButton:disabled {
+  background: #f5f5f5;
+  color: #999;
+  border-color: #e0e0e0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-.logoutButton:hover::after {
-  opacity: 1;
-  transform: translateX(2px);
-}
-
-/* Контейнер для групування елементів */
-.userMenuContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    0 2px 8px rgba(0, 0, 0, 0.05);
-  max-width: 400px;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-}
-
-.userMenuContainer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981);
-  border-radius: 20px 20px 0 0;
-}
-
-/* Анімація появи контейнера */
-@keyframes containerPopIn {
+/* Анімація появи */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.9) translateY(20px);
+    transform: translateY(-5px);
   }
   to {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: translateY(0);
   }
 }
 
-.userMenuContainer {
-  animation: containerPopIn 0.5s ease-out;
+/* Стилі для бейджа кількості товарів у корзині (опційно) */
+.cartLink {
+  position: relative;
 }
 
-/* Ефект хвилі при кліку */
-.logoutButton:after {
-  content: '';
+.cartBadge {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
+  top: -6px;
+  right: -6px;
+  background: #333;
+  color: white;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.3s, height 0.3s;
-}
-
-.logoutButton:active:after {
-  width: 100px;
-  height: 100px;
-}
-
-/* Додатковий статус онлайн */
-.onlineStatus {
+  width: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #10b981;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.4rem 0.8rem;
-  background: rgba(16, 185, 129, 0.1);
-  border-radius: 20px;
-  border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.onlineStatus::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  background: #10b981;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
 }
 
 /* Адаптивність */
 @media (max-width: 768px) {
-  .welcomeMessage {
-    font-size: 1.1rem;
-    padding: 0.8rem 1.5rem;
-    margin-bottom: 0.8rem;
+  .userMenu {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1rem;
   }
   
-  .logoutButton {
-    padding: 0.7rem 1.5rem;
-    font-size: 0.9rem;
-    min-width: 110px;
+  .userInfo {
+    justify-content: center;
+    text-align: center;
   }
   
-  .userMenuContainer {
-    padding: 1.2rem;
-    gap: 0.8rem;
+  .actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .cartLink, .logoutButton {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
+  .userMenu {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+  
+  .userInfo {
+    gap: 0.5rem;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .avatar svg {
+    width: 20px;
+    height: 20px;
+  }
+  
   .welcomeMessage {
-    font-size: 1rem;
-    padding: 0.7rem 1.2rem;
-    margin-bottom: 0.7rem;
+    font-size: 0.75rem;
+  }
+  
+  .userName {
+    font-size: 0.9rem;
+  }
+  
+  .actions {
+    gap: 0.5rem;
+  }
+  
+  .cartLink, .logoutButton {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    min-height: 36px;
+  }
+  
+  .cartLink svg, .logoutButton svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Стилі для темної теми (опційно) */
+@media (prefers-color-scheme: dark) {
+  .userMenu {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+  
+  .avatar {
+    background: #333;
+    border-color: #555;
+    color: #ccc;
+  }
+  
+  .welcomeMessage {
+    color: #ccc;
+  }
+  
+  .userName {
+    color: #fff;
+  }
+  
+  .cartLink {
+    background: #333;
+    color: #fff;
+    border-color: #555;
+  }
+  
+  .cartLink:hover {
+    background: #444;
+    border-color: #666;
   }
   
   .logoutButton {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.85rem;
-    min-width: 100px;
+    background: #333;
+    color: #f44336;
+    border-color: #f44336;
   }
   
-  .userMenuContainer {
-    padding: 1rem;
-    gap: 0.6rem;
+  .logoutButton:hover:not(:disabled) {
+    background: #f44336;
+    color: white;
+  }
+  
+  .logoutButton:disabled {
+    background: #333;
+    color: #666;
+    border-color: #555;
   }
 }
 
-/* Додатковий ефект для виходу */
-.logoutButton.exitAnimation {
-  animation: logoutSlideOut 0.5s ease-in-out forwards;
+/* Альтернативний компактний стиль */
+.userMenu.compact {
+  padding: 0.5rem;
+  gap: 1rem;
 }
 
-@keyframes logoutSlideOut {
-  to {
-    opacity: 0;
-    transform: translateX(100px);
-  }
+.userMenu.compact .avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.userMenu.compact .avatar svg {
+  width: 18px;
+  height: 18px;
+}
+
+.userMenu.compact .welcomeMessage {
+  display: none;
+}
+
+.userMenu.compact .userName {
+  font-size: 0.9rem;
+}
+
+.userMenu.compact .cartLink,
+.userMenu.compact .logoutButton {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  min-height: 32px;
 }

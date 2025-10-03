@@ -44,8 +44,13 @@ function useAuth() {
     function onAuthChange(e) {
       // event detail contains { user }
       try {
-        const payload = e.detail;
+        const payload = e.detail || {};
+        // payload may include { user, token }
         setUser(payload?.user ?? null);
+        if (payload?.token !== undefined) {
+          // update token presence flag when login/logout event includes token
+          setTokenPresent(!!payload.token);
+        }
       } catch {
         setUser(null);
       }

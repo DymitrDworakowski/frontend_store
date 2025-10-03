@@ -16,7 +16,7 @@ function ProductsList({ filters, onPageChange }) {
   if (isLoading)
     return (
       <div className={style.products}>
-        <Loader center />
+        <Loader />
       </div>
     );
   if (error)

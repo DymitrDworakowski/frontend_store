@@ -21,13 +21,23 @@ function CartAdd({ item, token, stock }) {
 
   return (
     <div>
-      <input
-        type="text"
-        min={1}
-        max={stock}
-        value={quantity}
-        onChange={(e) => setQuantity(Number(e.target.value))}
-      />
+      <button
+        onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
+        disabled={quantity <= 1}
+      >
+        -
+      </button>
+      <button
+        onClick={() => setQuantity(quantity < stock ? quantity + 1 : stock)}
+        disabled={quantity >= stock}
+      >
+        +
+      </button>
+
+      <br />
+      <span> Cart: </span>
+      <span> {quantity} </span>
+      <br />
       <button onClick={() => handleAddToCart(item)}>Add to Cart</button>
     </div>
   );

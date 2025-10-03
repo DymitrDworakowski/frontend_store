@@ -4,8 +4,6 @@ import UserMenu from "./UserMenu";
 import AuthNav from "./AuthNav";
 import style from './AppBar.module.css';
 
-
-
 function AppBar() {
   const { isAuthenticated } = useAuth();
 
@@ -13,7 +11,6 @@ function AppBar() {
     <header className={style.appBar}>
       <div className={style.inner}>
         <NavLink to="/" className={style.link}>Store</NavLink>
-        {/* <NavLink to="/products" className={style.link}>Products</NavLink> */}
         <div className={style.spacer} />
         {isAuthenticated ? <UserMenu className={style.userMenu} /> : <AuthNav />}
       </div>
