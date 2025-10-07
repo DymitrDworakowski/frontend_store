@@ -1,15 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchComments } from "../api/comments";
 
-function Comments({ token, productId }) {
+function Comments({ productId }) {
   const { data, isLoading, error } = useQuery({
     queryKey: ["comments", productId],
-    queryFn: () => fetchComments({ token,productId }),
+    queryFn: () => fetchComments(productId),
     enabled: !!productId,
   });
   if (isLoading) return <div>Loading comments...</div>;
   if (error) return <div>Error loading comments: {error.message}</div>;
-  console.log(data);
-  return <div>Comments for product {productId}</div>;
+
+  return (
+    <div>
+      <h3>Comments</h3>
+      {data.length === 0 && <p>No comments yet.</p>}
+      <ul>
+        {data.map((comment) => (
+          <li key={comment.id}>
+            <p>{comment.user.username}</p>
+            {comment.text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
+
 export default Comments;
