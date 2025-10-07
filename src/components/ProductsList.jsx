@@ -6,6 +6,7 @@ import CartAdd from "./CartAdd";
 import Loader from "./Loader";
 import AddComment from "./AddComment";
 import Comments from "./Comments";
+import { NavLink } from "react-router-dom";
 
 function ProductsList({ filters, onPageChange }) {
   const { data, isLoading, error } = useQuery({
@@ -79,11 +80,16 @@ function ProductsList({ filters, onPageChange }) {
                 </div>
               )}
             </div>
-            <button>Show Comments</button>
+            <NavLink
+              title={product.title}
+              to={`/product/${product._id}`}
+              className={style.link}
+            >
+              Show Comments
+            </NavLink>
             <Comments token={token} productId={product._id} />
           </li>
         ))}
-      
       </ul>
       <Pagination
         page={pageToShow}
