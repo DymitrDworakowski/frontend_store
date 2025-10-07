@@ -10,14 +10,13 @@ export async function fetchComments({ token, productId }) {
     throw new Error(err?.response?.data?.message || "Failed to fetch comments");
   }
 }
-export async function postComment({ token, productId, text }) {
-    console.log({text, productId, token});
+export async function postComment({ token, product, text }) {
   try {
     const res = await client.post(
       `/comments`,
-      { productId, text },
+      { product, text },
       { headers: authHeader(token) }
-    );
+    ); 
     return res.data;
   } catch (err) {
     throw new Error(err?.response?.data?.message || "Failed to post comment");

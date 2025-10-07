@@ -5,6 +5,7 @@ import Pagination from "./Pagination";
 import CartAdd from "./CartAdd";
 import Loader from "./Loader";
 import AddComment from "./AddComment";
+import Comments from "./Comments";
 
 function ProductsList({ filters, onPageChange }) {
   const { data, isLoading, error } = useQuery({
@@ -45,8 +46,8 @@ function ProductsList({ filters, onPageChange }) {
         {items.map((product) => (
           <li key={product._id} className={style.item}>
             <div className={style.imageContainer}>
-              <img 
-                src={product.imageUrl || "/logo192.png"} 
+              <img
+                src={product.imageUrl || "/logo192.png"}
                 alt={product.title}
                 className={style.image}
               />
@@ -54,7 +55,9 @@ function ProductsList({ filters, onPageChange }) {
             <div className={style.content}>
               <h3 className={style.name}>{product.title}</h3>
               <p className={style.description}>
-                {!product.description ? "No description available" : product.description}
+                {!product.description
+                  ? "No description available"
+                  : product.description}
               </p>
               <div className={style.details}>
                 <p className={style.price}>${product.price}</p>
@@ -64,16 +67,23 @@ function ProductsList({ filters, onPageChange }) {
                 </p>
               </div>
               <div>
-              {token && <AddComment token={token} productId={product._id} />}
+                {token && <AddComment token={token} product={product._id} />}
               </div>
               {token && (
                 <div className={style.cartAction}>
-                  <CartAdd token={token} item={product._id} stock={product.stock} />
+                  <CartAdd
+                    token={token}
+                    item={product._id}
+                    stock={product.stock}
+                  />
                 </div>
               )}
             </div>
+            <button>Show Comments</button>
+            <Comments token={token} productId={product._id} />
           </li>
         ))}
+      
       </ul>
       <Pagination
         page={pageToShow}
