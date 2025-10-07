@@ -60,6 +60,19 @@ By default the app uses a production API URL inside the API client. If you need 
 - Token storage: after login, the token returned by the server is saved to `localStorage` under the key `token` (example in `src/components/LoginForm.jsx` and `src/components/AdminLogin.jsx`). The app then reads `localStorage.getItem('token')` and passes the token to API helpers.
 - addToCart signature: `addToCart` accepts an object with `{ token, productId, quantity }` — many callers in the app call `mutation.mutate({ token, productId, quantity })` (see `src/components/CartAdd.jsx`). The API helper attaches `Authorization: Bearer <token>` via the axios client.
 
+### Comments feature (new)
+- Components:
+	- `src/components/Comments.jsx` — displays comments for a product. It uses React Query (queryKey `['comments', productId]`) and calls `fetchComments(productId)`.
+	- `src/components/AddComment.jsx` — form to post a new comment. It uses `postComment({ token, product, text })` and invalidates the comments query on success.
+- API endpoints (used by the frontend):
+	- GET `/comments/:productId` — returns a list of comments for a product (client wrapper: `fetchComments(productId)` in `src/api/comments.js`).
+	- POST `/comments` — create a new comment (client wrapper: `postComment({ token, product, text })`). Requires Authorization header `Bearer <token>`.
+- Permissions / behavior:
+	- Viewing comments is public — no token required.
+	- Posting a comment requires a valid token (user must be logged in). `AddComment` reads `token` from props and sends it to `postComment`.
+	- After posting a comment, the `comments` query is invalidated so the UI refreshes.
+
+
 ### Debugging common issues
 - Network / 403 on add-to-cart: open DevTools → Network. Check the request headers include `Authorization: Bearer <token>` and the request body is `{ productId, quantity }`.
 - Check token in console: `localStorage.getItem('token')` should return a non-null string.
@@ -126,6 +139,18 @@ Domyślnie aplikacja używa URL-a produkcyjnego w `src/api/client.js`. Jeżeli c
 - Moduły API: `src/api/goods.js` i `src/api/admin.js` korzystają z klienta axios.
 - Przechowywanie tokena: po zalogowaniu token jest zapisywany w `localStorage` pod kluczem `token` (zobacz `src/components/LoginForm.jsx` i `src/components/AdminLogin.jsx`). Aplikacja odczytuje token przez `localStorage.getItem('token')` i przekazuje go do funkcji API.
 - addToCart: przyjmuje obiekt `{ token, productId, quantity }`. Wywołania mutacji w kodzie powinny używać takiego kształtu (np. `mutation.mutate({ token, productId, quantity })`). Klient axios dodaje nagłówek `Authorization: Bearer <token>`.
+
+### Sekcja komentarzy (nowość)
+- Komponenty:
+	- `src/components/Comments.jsx` — wyświetla komentarze dla produktu (React Query, queryKey `['comments', productId]`, wywołuje `fetchComments(productId)`).
+	- `src/components/AddComment.jsx` — formularz dodawania komentarza. Wywołuje `postComment({ token, product, text })` i po udanym dodaniu unieważnia cache komentarzy.
+- Endpointy API:
+	- GET `/comments/:productId` — zwraca komentarze dla produktu (wrapper: `fetchComments(productId)` w `src/api/comments.js`).
+	- POST `/comments` — tworzy nowy komentarz (wrapper: `postComment({ token, product, text })`). Wymaga nagłówka Authorization `Bearer <token>`.
+- Uprawnienia / zachowanie:
+	- Oglądanie komentarzy jest publiczne — token nie jest wymagany.
+	- Dodawanie komentarza wymaga tokenu (użytkownik musi być zalogowany). `AddComment` przyjmuje `token` w props i przesyła go w żądaniu.
+	- Po dodaniu komentarza query `comments` jest unieważniany, co powoduje odświeżenie listy komentarzy.
 
 ### Debugowanie najczęstszych problemów
 - 403 dla add-to-cart: w DevTools → Network sprawdź, czy nagłówek `Authorization: Bearer <token>` jest wysyłany i czy body żądania to `{ productId, quantity }`.
