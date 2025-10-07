@@ -133,7 +133,7 @@ function AdminProducts() {
             <div key={product._id} className={style.productCard}>
               <div className={style.cardHeader}>
                 <img
-                  src={product.imageUrl || "/logo192.png"}
+                  src={product.image || "/logo192.png"}
                   alt={product.title}
                   className={style.productImage}
                 />

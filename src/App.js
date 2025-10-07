@@ -2,13 +2,14 @@ import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import AdminLogin from "./components/AdminLogin";
+import ProductDetails from "./components/ProductDetails";
 
 const Products = lazy(() => import("./pages/Products"));
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const Cart = lazy(() => import("./pages/Cart"));
-const ProductDetails = lazy(() => import("./pages/ProductDetails"));
+
 
 function App() {
   return (

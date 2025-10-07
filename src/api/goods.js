@@ -69,3 +69,12 @@ export async function removeFromCart({token,productId}) {
     );
   }
 }
+
+export async function getProductById(id) {
+  try {
+    const res = await client.get(`/products/${id}`);
+    return res.data;
+  } catch (err) {
+    throw new Error(err?.response?.data?.message || "Failed to fetch product");
+  }
+}

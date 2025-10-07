@@ -126,3 +126,207 @@
 .cartAction {
   margin-top: 1rem;
 }
+/* Base link styles */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #333;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  border: 1px solid #333;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.link:hover {
+  background: #000;
+  border-color: #000;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.link:active {
+  transform: translateY(0);
+}
+
+/* Icon styles */
+.link::after {
+  content: '→';
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.link:hover::after {
+  transform: translateX(2px);
+}
+
+/* Alternative outline style */
+.link.outline {
+  background: transparent;
+  color: #333;
+  border-color: #333;
+}
+
+.link.outline:hover {
+  background: #333;
+  color: white;
+}
+
+/* Minimal style */
+.link.minimal {
+  background: transparent;
+  color: #333;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  text-decoration: underline;
+}
+
+.link.minimal:hover {
+  background: transparent;
+  color: #000;
+  transform: none;
+  box-shadow: none;
+  text-decoration: none;
+}
+
+/* Small size */
+.link.small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.link.small::after {
+  font-size: 0.9rem;
+}
+
+/* Large size */
+.link.large {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.link.large::after {
+  font-size: 1.1rem;
+}
+
+/* Focus states for accessibility */
+.link:focus {
+  outline: 2px solid #333;
+  outline-offset: 2px;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  .link {
+    background: #fff;
+    color: #333;
+    border-color: #fff;
+  }
+
+  .link:hover {
+    background: #e0e0e0;
+    border-color: #e0e0e0;
+    color: #333;
+  }
+
+  .link.outline {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+  }
+
+  .link.outline:hover {
+    background: #fff;
+    color: #333;
+  }
+
+  .link.minimal {
+    color: #fff;
+    background: transparent;
+  }
+
+  .link.minimal:hover {
+    color: #e0e0e0;
+    background: transparent;
+  }
+}
+
+/* Animation for hover effect */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.link {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .link {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .link.small {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .link.large {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .link {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* Success state (optional) */
+.link.success {
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.link.success:hover {
+  background: #1b5e20;
+  border-color: #1b5e20;
+}
+
+/* Loading state */
+.link.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.link.loading::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
