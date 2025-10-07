@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getProductById } from "../api/goods";
 import Loader from "./Loader";
 import Comments from "./Comments";
+import CartAdd from "./CartAdd";
 import AddComment from "./AddComment";
 import style from "./ProductDetails.module.css";
 
@@ -77,6 +78,15 @@ function ProductDetails() {
                 {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
               </span>
             </div>
+            {token && (
+                <div className={style.cartAction}>
+                  <CartAdd
+                    token={token}
+                    item={product._id}
+                    stock={product.stock}
+                  />
+                </div>
+            )}
           </div>
         </div>
       </div>

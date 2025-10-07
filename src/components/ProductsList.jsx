@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 
 function ProductsList({ totalPages, onPageChange, pageToShow, items }) {
   const token = localStorage.getItem("token");
-  
 
   return (
     <div className={style.products}>
@@ -23,11 +22,6 @@ function ProductsList({ totalPages, onPageChange, pageToShow, items }) {
             </div>
             <div className={style.content}>
               <h3 className={style.name}>{product.title}</h3>
-              <p className={style.description}>
-                {!product.description
-                  ? "No description available"
-                  : product.description}
-              </p>
               <div className={style.details}>
                 <p className={style.price}>${product.price}</p>
                 <p className={style.category}>{product.category}</p>
