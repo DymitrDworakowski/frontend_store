@@ -1,4 +1,6 @@
 import style from './Pagination.module.css';
+import { ReactComponent as ArrowLeft } from '../assets/svg/arrow-left.svg';
+import { ReactComponent as ArrowRight } from '../assets/svg/arrow-right.svg';
 
 function Pagination({ page, totalPages, onChange }) {
   if (totalPages <= 1) return null;
@@ -13,9 +15,7 @@ function Pagination({ page, totalPages, onChange }) {
         onClick={() => onChange(page - 1)} 
         className={`${style.button} ${style.prevButton}`}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M15 18l-6-6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
+        <ArrowLeft width={16} height={16} />
         Previous
       </button>
       
@@ -30,9 +30,7 @@ function Pagination({ page, totalPages, onChange }) {
         className={`${style.button} ${style.nextButton}`}
       >
         Next
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M9 18l6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
+        <ArrowRight width={16} height={16} />
       </button>
     </div>
   );

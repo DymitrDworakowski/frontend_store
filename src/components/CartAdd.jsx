@@ -3,6 +3,9 @@ import { addToCart } from "../api/goods";
 import { useState } from "react";
 import style from "./CartAdd.module.css";
 import Loader from "./Loader";
+import { ReactComponent as MinusIcon } from "../assets/svg/minus.svg";
+import { ReactComponent as PlusIcon } from "../assets/svg/plus.svg";
+import { ReactComponent as CartIcon } from "../assets/svg/cart.svg";
 
 function CartAdd({ item, token, stock }) {
   const [quantity, setQuantity] = useState(1);
@@ -38,10 +41,9 @@ function CartAdd({ item, token, stock }) {
             onClick={handleDecrement}
             disabled={quantity <= 1}
             className={style.quantityButton}
+            aria-label="Decrease quantity"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M5 12h14" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
+            <MinusIcon width={16} height={16} />
           </button>
           
           <span className={style.quantityDisplay}>{quantity}</span>
@@ -50,11 +52,9 @@ function CartAdd({ item, token, stock }) {
             onClick={handleIncrement}
             disabled={quantity >= stock}
             className={style.quantityButton}
+            aria-label="Increase quantity"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M12 5v14" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M5 12h14" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
+            <PlusIcon width={16} height={16} />
           </button>
         </div>
         
@@ -77,11 +77,7 @@ function CartAdd({ item, token, stock }) {
           </>
         ) : (
           <>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <circle cx="8" cy="21" r="1" strokeWidth="2"/>
-              <circle cx="19" cy="21" r="1" strokeWidth="2"/>
-              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" strokeWidth="2"/>
-            </svg>
+            <CartIcon width={18} height={18} />
             Add to Cart
           </>
         )}

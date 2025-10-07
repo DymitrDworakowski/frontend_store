@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import style from "./SearchBar.module.css";
+import { ReactComponent as SearchIcon } from "../assets/svg/search.svg";
+import { ReactComponent as ClearIcon } from "../assets/svg/clear.svg";
 
 function SearchBar({ onSearch, debounceMs = 400, initialValue = "" }) {
   const [value, setValue] = useState(initialValue);
@@ -24,10 +26,7 @@ function SearchBar({ onSearch, debounceMs = 400, initialValue = "" }) {
   return (
     <div className={style.container}>
       <div className={style.searchGroup}>
-        <svg className={style.searchIcon} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <circle cx="11" cy="11" r="8" strokeWidth="2"/>
-          <path d="m21 21-4.35-4.35" strokeWidth="2" strokeLinecap="round"/>
-        </svg>
+        <SearchIcon className={style.searchIcon} width={18} height={18} />
         <input
           type="text"
           placeholder="Search products..."
@@ -37,11 +36,7 @@ function SearchBar({ onSearch, debounceMs = 400, initialValue = "" }) {
         />
         {value && (
           <button type="button" onClick={handleClear} className={style.clearButton}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <circle cx="12" cy="12" r="10" strokeWidth="2"/>
-              <path d="m15 9-6 6" strokeWidth="2" strokeLinecap="round"/>
-              <path d="m9 9 6 6" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
+            <ClearIcon width={16} height={16} />
           </button>
         )}
       </div>

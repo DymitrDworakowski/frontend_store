@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchComments } from "../api/comments";
 import Loader from "./Loader";
 import style from "./Comments.module.css";
+import { ReactComponent as EmptyCommentIcon } from "../assets/svg/empty-comment.svg";
 
 function Comments({ productId }) {
   const { data, isLoading, error } = useQuery({
@@ -39,9 +40,7 @@ function Comments({ productId }) {
       
       {comments.length === 0 ? (
         <div className={style.emptyState}>
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" className={style.emptyIcon}>
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <EmptyCommentIcon width={48} height={48} className={style.emptyIcon} />
           <p className={style.emptyText}>No comments yet. Be the first to share your thoughts!</p>
         </div>
       ) : (

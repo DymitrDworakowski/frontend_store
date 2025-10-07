@@ -4,6 +4,8 @@ import { removeFromCart } from "../api/goods";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Loader from "../components/Loader";
 import style from "./Cart.module.css";
+import { ReactComponent as PlaceholderIcon } from "../assets/svg/placeholder.svg";
+import { ReactComponent as TrashIcon } from "../assets/svg/trash.svg";
 
 function Cart() {
   const token = localStorage.getItem("token");
@@ -84,28 +86,7 @@ function Cart() {
                     />
                   ) : (
                     <div className={style.imagePlaceholder}>
-                      <svg
-                        width="40"
-                        height="40"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                      >
-                        <rect
-                          x="3"
-                          y="3"
-                          width="18"
-                          height="18"
-                          rx="2"
-                          strokeWidth="2"
-                        />
-                        <circle cx="8.5" cy="8.5" r="1.5" strokeWidth="2" />
-                        <path
-                          d="m21 15-5-5L5 21"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                      </svg>
+                      <PlaceholderIcon width={40} height={40} />
                     </div>
                   )}
                 </div>
@@ -127,33 +108,18 @@ function Cart() {
                   </p>
                 </div>
 
-                <button
-                  onClick={() => handleRemoveFromCart(item.product._id)}
-                  className={style.removeButton}
-                  disabled={mutation.isLoading}
-                >
-                  {mutation.isLoading ? (
-                    <Loader size={16} />
-                  ) : (
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
+                    <button
+                      onClick={() => handleRemoveFromCart(item.product._id)}
+                      className={style.removeButton}
+                      disabled={mutation.isLoading}
+                      aria-label="Remove from cart"
                     >
-                      <path d="M3 6h18" strokeWidth="2" strokeLinecap="round" />
-                      <path
-                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"
-                        strokeWidth="2"
-                      />
-                      <path
-                        d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-                        strokeWidth="2"
-                      />
-                    </svg>
-                  )}
-                </button>
+                      {mutation.isLoading ? (
+                        <Loader size={16} />
+                      ) : (
+                        <TrashIcon width={18} height={18} />
+                      )}
+                    </button>
               </div>
             ))}
           </div>

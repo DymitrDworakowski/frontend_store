@@ -161,14 +161,6 @@ Domyślnie aplikacja używa URL-a produkcyjnego w `src/api/client.js`. Jeżeli c
 - Użyj React Query Devtools do debugowania zapytań i mutacji.
 - Możesz dodać interceptor axios w `src/api/client.js`, żeby automatycznie dołączać token z `localStorage` do wszystkich zapytań — wtedy nie trzeba będzie przekazywać tokena ręcznie.
 
----
-
-If you want, I can also:
-- add an axios request interceptor that reads token from localStorage and attaches it automatically,
-- add a short developer script that prints outgoing API requests to console (for debugging),
-- or create small unit tests for API wrappers (mocking axios).
-
-Feel free to tell me which of the above you'd like me to add.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
