@@ -54,12 +54,12 @@ function Cart() {
   }
 
   const totalQuantity =
-    cartItems?.reduce((acc, item) => acc + item.quantity, 0) || 0;
+    cartItems?.reduce((acc, item) => acc + (item?.quantity ?? 0), 0) ?? 0;
   const totalPrice =
     cartItems?.reduce(
-      (acc, item) => acc + item.product.price * item.quantity,
+      (acc, item) => acc + (item?.product?.price ?? 0) * (item?.quantity ?? 0),
       0
-    ) || 0;
+    ) ?? 0;
 
   return (
     <div className={style.container}>
@@ -76,12 +76,15 @@ function Cart() {
         <div className={style.cartContent}>
           <div className={style.itemsList}>
             {cartItems.map((item) => (
-              <div key={item._id} className={style.cartItem}>
+              <div
+                key={item._id ?? item.product?._id ?? item.productId}
+                className={style.cartItem}
+              >
                 <div className={style.itemImage}>
-                  {item.product.imageUrl ? (
+                  {item.product?.image ? (
                     <img
-                      src={item.product.imageUrl}
-                      alt={item.product.title}
+                      src={item.product?.image}
+                      alt={item.product?.title || "Product image"}
                       className={style.image}
                     />
                   ) : (
@@ -92,34 +95,49 @@ function Cart() {
                 </div>
 
                 <div className={style.itemDetails}>
-                  <h3 className={style.productTitle}>{item.product.title}</h3>
+                  <h3 className={style.productTitle}>
+                    {item.product?.title || "No Title"}
+                  </h3>
                   <p className={style.productCategory}>
-                    {item.product.category}
+                    {item.product?.category || "—"}
                   </p>
                   <div className={style.priceQuantity}>
-                    <span className={style.price}>${item.product.price}</span>
-                    <span className={style.quantity}>Qty: {item.quantity}</span>
+                    <span className={style.price}>
+                      {typeof item?.product?.price === "number"
+                        ? `$${item.product.price}`
+                        : "—"}
+                    </span>
+                    <span className={style.quantity}>
+                      Qty: {item?.quantity ?? 0}
+                    </span>
                   </div>
                   <p className={style.itemTotal}>
                     Total:{" "}
                     <strong>
-                      ${(item.product.price * item.quantity).toFixed(2)}
+                      $
+                      {(
+                        (item?.product?.price ?? 0) * (item?.quantity ?? 0)
+                      ).toFixed(2)}
                     </strong>
                   </p>
                 </div>
 
-                    <button
-                      onClick={() => handleRemoveFromCart(item.product._id)}
-                      className={style.removeButton}
-                      disabled={mutation.isLoading}
-                      aria-label="Remove from cart"
-                    >
-                      {mutation.isLoading ? (
-                        <Loader size={16} />
-                      ) : (
-                        <TrashIcon width={18} height={18} />
-                      )}
-                    </button>
+                <button
+                  onClick={() =>
+                    handleRemoveFromCart(
+                      item.product?._id ?? item.productId ?? item._id
+                    )
+                  }
+                  className={style.removeButton}
+                  disabled={mutation.isLoading}
+                  aria-label="Remove from cart"
+                >
+                  {mutation.isLoading ? (
+                    <Loader size={16} />
+                  ) : (
+                    <TrashIcon width={18} height={18} />
+                  )}
+                </button>
               </div>
             ))}
           </div>
