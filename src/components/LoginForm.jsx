@@ -10,9 +10,12 @@ function LoginForm() {
     mutationFn: adminLogin,
     onSuccess: (data) => {
       localStorage.setItem("token", data.token);
-      // notify same-window listeners about token presence
       try {
-        window.dispatchEvent(new CustomEvent('authChange', { detail: { user: data.user ?? null, token: data.token } }));
+        window.dispatchEvent(
+          new CustomEvent("authChange", {
+            detail: { user: data.user ?? null, token: data.token },
+          })
+        );
       } catch {}
       alert("Login successful");
       navigate("/");
@@ -35,45 +38,56 @@ function LoginForm() {
   };
 
   return (
+    <div>
+      <h2 className={style.formTitle}>Login</h2>
+      <p className={style.formDescription}>
+        Please enter your credentials to log in.
+      </p>
       <form onSubmit={handleSubmit} className={style.form}>
-      <div className={style.formGroup}>
-        <label htmlFor="username" className={style.label}>Username:</label>
-        <input
-        
-          type="text"
-          id="username"
-          name="username"
-          placeholder="Enter your username"
-          required
-          className={style.input}
-        />
-      </div>
-      <div className={style.formGroup}>
-        <label htmlFor="email" className={style.label}>Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Enter your email"
-          required
-          className={style.input}
-        />
-      </div>
-      <div className={style.formGroup}>
-        <label htmlFor="password" className={style.label}>Password:</label>
-        <input
-
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Enter your password"
-          required
-          className={style.input}
-        
-        />
-      </div>
-  <button type="submit" className={style.button}>{mutation.isLoading ? <Loader size={16} /> : 'Login'}</button>
-    </form>
+        <div className={style.formGroup}>
+          <label htmlFor="username" className={style.label}>
+            Username:
+          </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
+            required
+            className={style.input}
+          />
+        </div>
+        <div className={style.formGroup}>
+          <label htmlFor="email" className={style.label}>
+            Email:
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+            className={style.input}
+          />
+        </div>
+        <div className={style.formGroup}>
+          <label htmlFor="password" className={style.label}>
+            Password:
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+            className={style.input}
+          />
+        </div>
+        <button type="submit" className={style.button}>
+          {mutation.isLoading ? <Loader size={16} /> : "Login"}
+        </button>
+      </form>
+    </div>
   );
 }
 

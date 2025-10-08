@@ -3,6 +3,7 @@ import { adminLogin } from "../api/admin";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import style from "./LoginForm.module.css";
+import img from "../assets/images/employees-only-sign-nhe-29160_1000.avif";
 
 function AdminLogin() {
   const navigate = useNavigate();
@@ -11,10 +12,14 @@ function AdminLogin() {
     onSuccess: (data) => {
       localStorage.setItem("token", data.token);
       try {
-        window.dispatchEvent(new CustomEvent('authChange', { detail: { user: data.user ?? null, token: data.token } }));
+        window.dispatchEvent(
+          new CustomEvent("authChange", {
+            detail: { user: data.user ?? null, token: data.token },
+          })
+        );
       } catch {}
       alert("Login successful");
-      navigate("/admin/panel"); // Переносимо навігацію сюди після успішного логіну
+      navigate("/admin/panel");
     },
     onError: (error) => {
       alert(`Login failed: ${error.message}`);
@@ -31,12 +36,14 @@ function AdminLogin() {
     };
 
     mutation.mutate(credentials);
-    // Видаляємо navigate звідси - він буде викликаний в onSuccess
+  
   };
 
   if (mutation.isLoading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", padding: "2rem" }}
+      >
         <Loader center />
       </div>
     );
@@ -44,7 +51,13 @@ function AdminLogin() {
 
   return (
     <div className={style.formContainer}>
-      <h2 className={style.formTitle}>Admin Login</h2>
+      <div className={style.formHeader}>
+        <img src={img} alt="Employees Only" className={style.sideImage} />
+        <h2 className={style.formTitle}>Admin Login</h2>
+        <p className={style.formDescription}>
+          Please enter your credentials to access the admin panel.
+        </p>
+      </div>
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
           <label htmlFor="username" className={style.label}>
@@ -88,14 +101,14 @@ function AdminLogin() {
             disabled={mutation.isLoading}
           />
         </div>
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className={style.button}
           disabled={mutation.isLoading}
         >
           {mutation.isLoading ? "Logging in..." : "Login"}
         </button>
-        
+
         {mutation.isError && (
           <div className={style.error}>
             Login failed: {mutation.error.message}

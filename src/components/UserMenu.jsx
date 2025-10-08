@@ -12,9 +12,10 @@ function UserMenu() {
     mutationFn: logout,
     onSuccess: () => {
       localStorage.removeItem("token");
-      localStorage.removeItem("user");
       try {
-        window.dispatchEvent(new CustomEvent('authChange', { detail: { user: null, token: null } }));
+        window.dispatchEvent(
+          new CustomEvent("authChange", { detail: { user: null, token: null } })
+        );
       } catch {}
       alert("Logout successful");
       queryClient.invalidateQueries(["adminProducts"]);
@@ -49,13 +50,13 @@ function UserMenu() {
           <p className={style.userName}>{user?.name || "User"}</p>
         </div>
       </div>
-      
+
       <div className={style.actions}>
         <a href="/cart" className={style.cartLink}>
           <CartIcon width={18} height={18} />
           Cart
         </a>
-        
+
         <button
           className={style.logoutButton}
           onClick={handleLogout}

@@ -5,6 +5,7 @@ import AdminLogin from "./components/AdminLogin";
 import ProductDetails from "./components/ProductDetails";
 
 const Products = lazy(() => import("./pages/Products"));
+const About = lazy(() => import("./components/AboutUs"));
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Products />} />
+          <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
