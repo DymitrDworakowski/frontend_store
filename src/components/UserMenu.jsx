@@ -17,8 +17,15 @@ function UserMenu() {
           new CustomEvent("authChange", { detail: { user: null, token: null } })
         );
       } catch {}
-      alert("Logout successful");
       queryClient.invalidateQueries(["adminProducts"]);
+      setTimeout(() => {
+        try {
+          window.location.reload();
+        } catch (e) {
+          // fallback: navigate to root
+          window.location.href = "/";
+        }
+      }, 100);
     },
     onError: (error) => {
       console.error("Logout error details:", error);
