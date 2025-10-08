@@ -136,26 +136,6 @@
   }
 }
 
-/* Стилі для бейджа кількості товарів у корзині (опційно) */
-.cartLink {
-  position: relative;
-}
-
-.cartBadge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: #333;
-  color: white;
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 600;
-}
 
 /* Адаптивність */
 @media (max-width: 768px) {
@@ -277,33 +257,3 @@
   }
 }
 
-/* Альтернативний компактний стиль */
-.userMenu.compact {
-  padding: 0.5rem;
-  gap: 1rem;
-}
-
-.userMenu.compact .avatar {
-  width: 36px;
-  height: 36px;
-}
-
-.userMenu.compact .avatar svg {
-  width: 18px;
-  height: 18px;
-}
-
-.userMenu.compact .welcomeMessage {
-  display: none;
-}
-
-.userMenu.compact .userName {
-  font-size: 0.9rem;
-}
-
-.userMenu.compact .cartLink,
-.userMenu.compact .logoutButton {
-  padding: 0.4rem 0.75rem;
-  font-size: 0.85rem;
-  min-height: 32px;
-}
