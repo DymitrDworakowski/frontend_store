@@ -1,6 +1,7 @@
 import style from "./ProductsList.module.css";
 import Pagination from "./Pagination";
 import CartAdd from "./CartAdd";
+import noImg from "../assets/images/brak-zdjecia_1030x578.jpg";
 
 import { NavLink } from "react-router-dom";
 
@@ -15,7 +16,7 @@ function ProductsList({ totalPages, onPageChange, pageToShow, items }) {
           <li key={product._id} className={style.item}>
             <div className={style.imageContainer}>
               <img
-                src={product.image || "/logo192.png"}
+                src={product.image || noImg}
                 alt={product.title}
                 className={style.image}
               />

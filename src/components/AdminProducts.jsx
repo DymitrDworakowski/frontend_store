@@ -7,6 +7,7 @@ import FormItems from "./FormItems";
 import Pagination from "./Pagination";
 import style from "./AdminProducts.module.css";
 import Loader from "./Loader";
+import noImg from "../assets/images/brak-zdjecia_1030x578.jpg";
 
 function AdminProducts() {
   const queryClient = useQueryClient();
@@ -60,9 +61,8 @@ function AdminProducts() {
         <Loader center />
       </div>
     );
-    
-  if (error)
-    return <div className={style.error}>Error: {error.message}</div>;
+
+  if (error) return <div className={style.error}>Error: {error.message}</div>;
 
   const handleDelete = (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
@@ -106,9 +106,7 @@ function AdminProducts() {
 
   return (
     <div className={style.container}>
-      
-
-      <div >
+      <div>
         <FormItems
           onSuccess={() => {
             queryClient.invalidateQueries(["adminProducts"]);
@@ -118,7 +116,7 @@ function AdminProducts() {
           Total products: {data?.total ?? data?.count ?? items.length}
         </div>
       </div>
-<div className={style.header}>
+      <div className={style.header}>
         <h1 className={style.title}>Product Management</h1>
         <div className={style.controls}>
           <SearchBar initialValue={filters.search} onSearch={handleSearch} />
@@ -133,7 +131,7 @@ function AdminProducts() {
             <div key={product._id} className={style.productCard}>
               <div className={style.cardHeader}>
                 <img
-                  src={product.image || "/logo192.png"}
+                  src={product.image || noImg}
                   alt={product.title}
                   className={style.productImage}
                 />
@@ -148,8 +146,12 @@ function AdminProducts() {
                   {product.description || "No description available"}
                 </p>
                 <div className={style.meta}>
-                  <span className={style.category}>{product.category || "—"}</span>
-                  <span className={style.stock}>Stock: {product.stock ?? "0"}</span>
+                  <span className={style.category}>
+                    {product.category || "—"}
+                  </span>
+                  <span className={style.stock}>
+                    Stock: {product.stock ?? "0"}
+                  </span>
                 </div>
               </div>
 

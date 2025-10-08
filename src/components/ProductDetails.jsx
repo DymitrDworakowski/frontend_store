@@ -95,7 +95,7 @@ function ProductDetails() {
         <div className={style.commentsHeader}>
           <h2 className={style.commentsTitle}>Customer Reviews</h2>
           {token && (
-            <AddComment token={token} productId={product._id} />
+            <AddComment token={token} product={product._id} />
           )}
         </div>
         <Comments token={token} productId={product._id} />
