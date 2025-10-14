@@ -1,0 +1,149 @@
+.formContainer {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.formTitle {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.input, .textarea {
+  padding: 0.75rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 3px;
+  font-size: 0.95rem;
+  background: #fff;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.input:focus, .textarea:focus {
+  border-color: #666;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.input:hover, .textarea:hover {
+  border-color: #a0a0a0;
+}
+
+.input::placeholder, .textarea::placeholder {
+  color: #999;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  background: #333;
+  color: white;
+  border: 1px solid #333;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.button:hover {
+  background: #000;
+  border-color: #000;
+}
+
+.button:active {
+  background: #222;
+}
+
+.button:disabled {
+  background: #999;
+  border-color: #999;
+  cursor: not-allowed;
+}
+
+/* Анімація появи */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Стилі для помилок валідації */
+.input:invalid:not(:focus), .textarea:invalid:not(:focus) {
+  border-color: #d00;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 0.5rem;
+  }
+  
+  .form {
+    padding: 1.5rem;
+    margin: 1rem;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .input, .textarea {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .formTitle {
+    font-size: 1.1rem;
+  }
+}

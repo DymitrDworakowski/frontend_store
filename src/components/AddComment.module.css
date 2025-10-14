@@ -1,0 +1,232 @@
+.commentForm {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.textarea {
+  width: 90%;
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: vertical;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.1);
+}
+
+.textarea:hover {
+  border-color: #a0a0a0;
+}
+
+.textarea:disabled {
+  background: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+.textarea::placeholder {
+  color: #999;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.charCount {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.charCount.warning {
+  color: #d32f2f;
+  font-weight: 500;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  min-width: 80px;
+  min-height: 36px;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #000;
+  transform: translateY(-1px);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submitButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Анімації */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  .commentForm {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .textarea {
+    padding: 0.875rem;
+    font-size: 0.9rem;
+  }
+  
+  .submitButton {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+    min-width: 70px;
+    min-height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .commentForm {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .formGroup {
+    gap: 0.75rem;
+  }
+  
+  .textarea {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    rows: 2;
+  }
+  
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  
+  .submitButton {
+    width: 100%;
+    padding: 0.75rem;
+  }
+}
+
+/* Темна тема */
+@media (prefers-color-scheme: dark) {
+  .commentForm {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+  
+  .textarea {
+    background: #333;
+    border-color: #555;
+    color: #fff;
+  }
+  
+  .textarea:focus {
+    border-color: #fff;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+  }
+  
+  .textarea::placeholder {
+    color: #aaa;
+  }
+  
+  .textarea:disabled {
+    background: #3a3a3a;
+    color: #888;
+  }
+  
+  .charCount {
+    color: #ccc;
+  }
+  
+  .submitButton {
+    background: #fff;
+    color: #333;
+  }
+  
+  .submitButton:hover:not(:disabled) {
+    background: #e0e0e0;
+    color: #333;
+  }
+  
+  .submitButton:disabled {
+    background: #555;
+    color: #888;
+  }
+}
+
+/* Варіант без рамки */
+.commentForm.borderless {
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+.commentForm.borderless .textarea {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+}
+
+.commentForm.borderless .textarea:focus {
+  background: #fff;
+}
+
+/* Компактний варіант */
+.commentForm.compact {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.commentForm.compact .textarea {
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  rows: 2;
+}

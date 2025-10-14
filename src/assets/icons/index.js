@@ -1,0 +1,16 @@
+export { ReactComponent as LogoIcon } from "../svg/logo.svg";
+export { ReactComponent as CartIcon } from "../svg/cart.svg";
+export { ReactComponent as MinusIcon } from "../svg/minus.svg";
+export { ReactComponent as PlusIcon } from "../svg/plus.svg";
+export { ReactComponent as SearchIcon } from "../svg/search.svg";
+export { ReactComponent as ClearIcon } from "../svg/clear.svg";
+export { ReactComponent as ArrowLeftIcon } from "../svg/arrow-left.svg";
+export { ReactComponent as ArrowRightIcon } from "../svg/arrow-right.svg";
+export { ReactComponent as EmptyCommentIcon } from "../svg/empty-comment.svg";
+export { ReactComponent as PlaceholderIcon } from "../svg/placeholder.svg";
+export { ReactComponent as TrashIcon } from "../svg/trash.svg";
+export { ReactComponent as AvatarIcon } from "../svg/avatar.svg";
+export { ReactComponent as LogoutIcon } from "../svg/logout.svg";
+export { ReactComponent as EmailIcon } from "../svg/email.svg";
+export { ReactComponent as GitHubIcon } from "../svg/github.svg";
+export { ReactComponent as LinkedInIcon } from "../svg/linkedin.svg";

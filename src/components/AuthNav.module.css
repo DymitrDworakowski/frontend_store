@@ -1,0 +1,121 @@
+.authNav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2rem 0;
+    padding: 0;
+}
+
+.link {
+    color: #333;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px 28px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    background: #fff;
+    font-weight: 500;
+    font-size: 0.95rem;
+    position: relative;
+    min-width: 120px;
+}
+
+.link:hover {
+    background: #f8f8f8;
+    border-color: #a0a0a0;
+    color: #000;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.link:active {
+    transform: translateY(0);
+    background: #f0f0f0;
+}
+
+/* Різні стилі для Login та Register */
+.link[href*="login"] {
+    background: #f8f8f8;
+    border-color: #d0d0d0;
+}
+
+.link[href*="login"]:hover {
+    background: #f0f0f0;
+    border-color: #a0a0a0;
+}
+
+.link[href*="register"] {
+    background: #333;
+    color: white;
+    border-color: #333;
+}
+
+.link[href*="register"]:hover {
+    background: #000;
+    border-color: #000;
+}
+
+/* Спрощені іконки для посилань */
+.link[href*="login"]::after {
+    content: "→";
+    margin-left: 6px;
+    font-weight: normal;
+}
+
+.link[href*="register"]::before {
+    content: "👤";
+    margin-right: 6px;
+}
+
+/* Анімація появи кнопок */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.link {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.link[href*="register"] {
+    animation-delay: 0.05s;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .authNav {
+        flex-direction: column;
+        gap: 0.8rem;
+        margin: 1.5rem 0;
+    }
+    
+    .link {
+        padding: 10px 24px;
+        min-width: 160px;
+        font-size: 0.9rem;
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .authNav {
+        gap: 0.6rem;
+        margin: 1rem 0;
+    }
+    
+    .link {
+        padding: 8px 10px;
+        min-width: 140px;
+        font-size: 0.85rem;
+    }
+}
