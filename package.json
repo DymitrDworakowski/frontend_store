@@ -1,8 +1,8 @@
 {
-  "name": "frontend_store",
+   "name": "frontend_store",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://DymitrDworakowski.github.io/frontend_store/",
+  "homepage": "https://DymitrDworakowski.github.io/frontend_store",
   "dependencies": {
     "@tanstack/react-query": "^5.90.2",
     "@tanstack/react-query-devtools": "^5.90.2",
@@ -24,7 +24,7 @@
     "start": "react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
