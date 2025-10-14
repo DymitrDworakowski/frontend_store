@@ -26,7 +26,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/panel" element={<AdminPanel />} />
-          <Route path="/frontend_store/*" element={<p>Page Not Found</p>} />
+          <Route path="*" element={<p>Page Not Found</p>} />
         </Route>
       </Routes>
     </>
