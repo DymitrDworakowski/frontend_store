@@ -6,6 +6,7 @@ import Comments from "./Comments";
 import CartAdd from "./CartAdd";
 import AddComment from "./AddComment";
 import style from "./ProductDetails.module.css";
+import noImg from "../assets/images/brak-zdjecia_1030x578.jpg";
 
 function ProductDetails() {
   const params = useParams();
@@ -51,7 +52,7 @@ function ProductDetails() {
       <div className={style.productCard}>
         <div className={style.imageSection}>
           <img 
-            src={product.image || "/logo192.png"} 
+            src={product.image || noImg} 
             alt={product.title}
             className={style.productImage}
           />

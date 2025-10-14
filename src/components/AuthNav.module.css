@@ -114,16 +114,8 @@
     }
     
     .link {
-        padding: 8px 20px;
+        padding: 8px 10px;
         min-width: 140px;
         font-size: 0.85rem;
     }
-}
-
-/* Стиль для активної сторінки */
-.link.active {
-    background: #333;
-    color: white;
-    border-color: #333;
-    font-weight: 600;
 }

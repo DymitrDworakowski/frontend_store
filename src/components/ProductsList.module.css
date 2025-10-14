@@ -1,6 +1,5 @@
 /* ProductsList.module.css - Варіант 3 */
 .products {
-  background: linear-gradient(135deg, #d18a8a 0%, #702020 100%);
   min-height: 100vh;
   padding: 2rem 1rem;
 }
@@ -11,7 +10,7 @@
   font-weight: 700;
   color: #fff;
   margin-bottom: 3rem;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .list {
@@ -34,13 +33,18 @@
 }
 
 .item::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
   transition: left 0.5s ease;
 }
 
@@ -157,7 +161,7 @@
 
 /* Icon styles */
 .link::after {
-  content: '→';
+  content: "→";
   font-size: 1rem;
   transition: transform 0.2s ease;
 }
@@ -317,7 +321,7 @@
 }
 
 .link.loading::after {
-  content: '';
+  content: "";
   width: 12px;
   height: 12px;
   border: 2px solid transparent;
@@ -327,6 +331,10 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

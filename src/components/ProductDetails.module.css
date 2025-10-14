@@ -57,13 +57,13 @@
 .price {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #620303;
+  color: #c70202;
   margin: 0;
 }
 
 .category {
-  background: rgba(98, 3, 3, 0.1);
-  color: #620303;
+  background: rgba(141, 2, 2, 0.1);
+  color: #c70202;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -119,7 +119,6 @@
 }
 
 .commentsHeader {
-
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
@@ -191,15 +190,15 @@
     gap: 2rem;
     padding: 1.5rem;
   }
-  
+
   .productImage {
     max-width: 300px;
   }
-  
+
   .title {
     font-size: 1.75rem;
   }
-  
+
   .price {
     font-size: 2rem;
   }
@@ -209,32 +208,32 @@
   .container {
     padding: 1rem 0.5rem;
   }
-  
+
   .productCard {
     padding: 1rem;
     margin-bottom: 2rem;
   }
-  
+
   .commentsSection {
     padding: 1.5rem;
   }
-  
+
   .commentsHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
   }
-  
+
   .title {
     font-size: 1.5rem;
   }
-  
+
   .price {
     font-size: 1.75rem;
   }
@@ -244,24 +243,24 @@
   .container {
     padding: 0.5rem;
   }
-  
+
   .productCard {
     padding: 1rem;
     gap: 1.5rem;
   }
-  
+
   .commentsSection {
     padding: 1rem;
   }
-  
+
   .title {
     font-size: 1.3rem;
   }
-  
+
   .price {
     font-size: 1.5rem;
   }
-  
+
   .description {
     font-size: 1rem;
   }
@@ -276,31 +275,31 @@
     border-color: #444;
     color: #fff;
   }
-  
+
   .title {
     color: #fff;
   }
-  
+
   .description {
     color: #ccc;
   }
-  
+
   .stockLabel {
     color: #ccc;
   }
-  
+
   .commentsTitle {
     color: #fff;
   }
-  
+
   .productImage {
     border-color: #444;
   }
-  
+
   .metaInfo {
     border-top-color: #444;
   }
-  
+
   .commentsHeader {
     border-bottom-color: #444;
   }

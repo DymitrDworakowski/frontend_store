@@ -4,6 +4,8 @@ import FilterPanel from "../components/FilterPanel";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/goods";
 import Loader from "../components/Loader";
+import LightRays from "../components/LightRays";
+import styles from "./Products.module.css";
 
 const { useState, useCallback } = require("react");
 
@@ -55,16 +57,35 @@ function Products() {
     ) || 1;
 
   return (
-    <>
-      <SearchBar onSearch={handleSearch} />
-      <FilterPanel onFilterChange={handleFilterChange} />
-      <ProductsList
-        pageToShow={pageToShow}
-        totalPages={totalPages}
-        items={items}
-        onPageChange={handlePageChange}
-      />
-    </>
+    <div className={styles.pageContainer}>
+      <div className={styles.raysBackground}>
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#e61a1aff"
+          raysSpeed={1.5}
+          lightSpread={0.8}
+          rayLength={1.2}
+          followMouse={true}
+          mouseInfluence={0.1}
+          noiseAmount={0.1}
+          distortion={0.05}
+          className="custom-rays"
+        />
+        <div className={styles.raysOverlay} />
+      </div>
+
+      <div className={styles.content}>
+        <SearchBar onSearch={handleSearch} />
+        <FilterPanel onFilterChange={handleFilterChange} />
+
+        <ProductsList
+          pageToShow={pageToShow}
+          totalPages={totalPages}
+          items={items}
+          onPageChange={handlePageChange}
+        />
+      </div>
+    </div>
   );
 }
 

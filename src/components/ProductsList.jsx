@@ -11,6 +11,7 @@ function ProductsList({ totalPages, onPageChange, pageToShow, items }) {
   return (
     <div className={style.products}>
       <h2 className={style.title}>Our Products</h2>
+
       <ul className={style.list}>
         {items.map((product) => (
           <li key={product._id} className={style.item}>

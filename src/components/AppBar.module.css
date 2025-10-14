@@ -14,7 +14,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Контейнер для посилань */
+
 .appBar > *:not(.userMenu) {
   display: flex;
   gap: 1rem;
@@ -110,16 +110,17 @@
   .appBar {
     flex-direction: column;
     gap: 1rem;
+    position: static;
   }
 
   .userMenu {
-    order: 0;
-    width: auto;
-    margin-top: 0;
+    order: 2;
+    width: 100%;
+    justify-content: center;
   }
 
   .link {
-    padding: 8px 16px;
+    padding: 0px;
     font-size: 0.85rem;
   }
 }
