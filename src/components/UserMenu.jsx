@@ -5,6 +5,7 @@ import Loader from "./Loader";
 import { ReactComponent as AvatarIcon } from "../assets/svg/avatar.svg";
 import { ReactComponent as CartIcon } from "../assets/svg/cart.svg";
 import { ReactComponent as LogoutIcon } from "../assets/svg/logout.svg";
+import { toast } from 'react-toastify';
 
 function UserMenu() {
   const queryClient = useQueryClient();
@@ -29,7 +30,7 @@ function UserMenu() {
     },
     onError: (error) => {
       console.error("Logout error details:", error);
-      alert(`Logout failed: ${error.message}`);
+      toast.error(`Logout failed: ${error.message}`);
     },
   });
 

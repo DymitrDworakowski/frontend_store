@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from "../api/comments";
 import style from "./AddComment.module.css";
 import Loader from "./Loader";
+import { toast } from 'react-toastify';
 
 function AddComment({ token, product }) {
   const [content, setContent] = useState("");
@@ -15,7 +16,7 @@ function AddComment({ token, product }) {
       queryClient.invalidateQueries(["comments", product]);
     },
     onError: (error) => {
-      alert(`Failed to add comment: ${error.message}`);
+      toast.error(`Failed to add comment: ${error.message}`);
     },
   });
 

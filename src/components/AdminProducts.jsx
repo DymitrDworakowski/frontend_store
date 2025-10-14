@@ -8,6 +8,7 @@ import Pagination from "./Pagination";
 import style from "./AdminProducts.module.css";
 import Loader from "./Loader";
 import noImg from "../assets/images/brak-zdjecia_1030x578.jpg";
+import { toast } from 'react-toastify';
 
 function AdminProducts() {
   const queryClient = useQueryClient();
@@ -47,11 +48,11 @@ function AdminProducts() {
   const deleteMutation = useMutation({
     mutationFn: deleteItem,
     onSuccess: () => {
-      alert("Item deleted successfully");
+      toast.success("Item deleted successfully");
       queryClient.invalidateQueries(["adminProducts"]);
     },
     onError: (error) => {
-      alert(`Delete failed: ${error.message}`);
+      toast.error(`Delete failed: ${error.message}`);
     },
   });
 

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import style from "./LoginForm.module.css";
 import img from "../assets/images/employees-only-sign-nhe-29160_1000.avif";
+import { toast } from 'react-toastify';
 
 function AdminLogin() {
   const navigate = useNavigate();
@@ -18,11 +19,11 @@ function AdminLogin() {
           })
         );
       } catch {}
-      alert("Login successful");
+      toast.success('Login successful');
       navigate("/admin/panel");
     },
     onError: (error) => {
-      alert(`Login failed: ${error.message}`);
+      toast.error(`Login failed: ${error.message}`);
     },
   });
 

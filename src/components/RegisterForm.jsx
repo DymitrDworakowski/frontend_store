@@ -2,16 +2,17 @@ import { userRegister } from "../api/admin";
 import { useMutation } from "@tanstack/react-query";
 import style from "./RegisterForm.module.css";
 import Loader from './Loader';
+import { toast } from 'react-toastify';
 
 function RegisterForm() {
   const mutation = useMutation({
     mutationFn: userRegister,
     onSuccess: (data) => {
-      alert("Registration successful");
+      toast.success("Registration successful");
     },
     onError: (error) => {
       console.error("Registration error details:", error);
-      alert(`Registration failed: ${error.message}`);
+      toast.error(`Registration failed: ${error.message}`);
     },
   });
 

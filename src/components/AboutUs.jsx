@@ -35,6 +35,8 @@ function AboutUs() {
           <li>@tanstack/react-query for server state and data fetching</li>
           <li>axios as the centralized HTTP client</li>
           <li>SVGR (import SVGs as React components) for icons</li>
+          <li>react-toastify for non-blocking notifications (toasts)</li>
+          <li>LightRays WebGL background (custom shader powered by ogl)</li>
           <li>CSS Modules for component-scoped styles</li>
           <li>LocalStorage + a small auth hook for simple auth state</li>
         </ul>
@@ -58,12 +60,22 @@ function AboutUs() {
             from <code>src/assets/icons</code> for convenience.
           </li>
           <li>
-            Consider adding an axios interceptor to automatically attach the
-            auth token from localStorage to requests.
+            The app now uses <strong>react-toastify</strong> for notifications.
+            The global `ToastContainer` is mounted in <code>src/index.js</code>.
+            Use <code>toast.success()</code> and <code>toast.error()</code> in
+            components to inform users without blocking the UI.
           </li>
           <li>
-            Adding a centralized notifications/toast component will improve UX
-            for API errors and successes.
+            The Products page includes an optional WebGL background component
+            <code>LightRays</code> (see <code>src/components/LightRays.jsx</code>).
+            It runs only when the component is visible and is pointer-events free
+            so it won't block interactions. Consider disabling it on mobile to
+            save battery/GPU.
+          </li>
+          <li>
+            Consider adding an axios interceptor in <code>src/api/client.js</code>
+            to automatically attach the token from <code>localStorage</code> if
+            you want to avoid passing the token manually to every API call.
           </li>
         </ul>
       </section>

@@ -20,6 +20,8 @@ This is a React frontend for a small e-commerce/store application. It uses React
 - @tanstack/react-query
 - Axios
 - CSS modules
+ - react-toastify (for non-blocking toasts/notifications)
+ - ogl & custom WebGL shader component (`LightRays`) for optional background effects
 
 ### Prerequisites
 - Node.js (>=14) and npm installed
@@ -59,6 +61,12 @@ By default the app uses a production API URL inside the API client. If you need 
 - API modules: `src/api/goods.js` and `src/api/admin.js` use the axios client.
 - Token storage: after login, the token returned by the server is saved to `localStorage` under the key `token` (example in `src/components/LoginForm.jsx` and `src/components/AdminLogin.jsx`). The app then reads `localStorage.getItem('token')` and passes the token to API helpers.
 - addToCart signature: `addToCart` accepts an object with `{ token, productId, quantity }` — many callers in the app call `mutation.mutate({ token, productId, quantity })` (see `src/components/CartAdd.jsx`). The API helper attaches `Authorization: Bearer <token>` via the axios client.
+
+### Notifications
+- The app uses `react-toastify` for user-facing notifications instead of browser alerts. A global `ToastContainer` is registered in `src/index.js`. Use `toast.success(...)` and `toast.error(...)` in components to show non-blocking messages.
+
+### Visual background effect
+- The `LightRays` component (`src/components/LightRays.jsx`) provides an optional WebGL shader background (used on the Products page). It's intentionally pointer-events free so it doesn't block interaction. You can tune its props (color, speed, spread) in `src/pages/Products.jsx` or disable it on small screens to save GPU.
 
 ### Comments feature (new)
 - Components:

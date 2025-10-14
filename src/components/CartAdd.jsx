@@ -6,6 +6,7 @@ import Loader from "./Loader";
 import { ReactComponent as MinusIcon } from "../assets/svg/minus.svg";
 import { ReactComponent as PlusIcon } from "../assets/svg/plus.svg";
 import { ReactComponent as CartIcon } from "../assets/svg/cart.svg";
+import { toast } from 'react-toastify';
 
 function CartAdd({ item, token, stock }) {
   const [quantity, setQuantity] = useState(1);
@@ -13,10 +14,10 @@ function CartAdd({ item, token, stock }) {
   const mutation = useMutation({
     mutationFn: addToCart,
     onSuccess: () => {
-      alert("Item added to cart successfully!");
+      toast.success("Item added to cart successfully!");
     },
     onError: (error) => {
-      alert(`Failed to add item to cart: ${error.message}`);
+      toast.error(`Failed to add item to cart: ${error.message}`);
     },
   });
 

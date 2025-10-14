@@ -3,6 +3,7 @@ import { adminLogin } from "../api/admin";
 import { useNavigate } from "react-router-dom";
 import style from "./LoginForm.module.css";
 import Loader from "./Loader";
+import { toast } from 'react-toastify';
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -17,11 +18,11 @@ function LoginForm() {
           })
         );
       } catch {}
-      alert("Login successful");
+      toast.success('Login successful');
       navigate("/");
     },
     onError: (error) => {
-      alert(`Login failed: ${error.message}`);
+      toast.error(`Login failed: ${error.message}`);
     },
   });
 

@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { addItems, editItem } from "../api/admin";
 import style from './FormItems.module.css';
 import Loader from './Loader';
+import { toast } from 'react-toastify';
 
 // Props:
 // - initialData (optional) { title, price, stock, category, barcode }
@@ -20,7 +21,7 @@ function FormItems({ initialData = {}, mode = 'add', itemId, onSuccess }) {
     },
     onError: (error) => {
       console.error('Error adding/editing product:', error);
-      alert(`Operation failed: ${error?.message || String(error)}`);
+      toast.error(`Operation failed: ${error?.message || String(error)}`);
     },
   });
 
@@ -38,7 +39,10 @@ function FormItems({ initialData = {}, mode = 'add', itemId, onSuccess }) {
     };
     const token = localStorage.getItem('token');
     if (mode === 'edit') {
-      if (!itemId) return alert('Missing item id for edit');
+      if (!itemId) {
+        toast.error('Missing item id for edit');
+        return;
+      }
       mutation.mutate({ token, itemId, itemData });
     } else {
       mutation.mutate({ token, itemData });
