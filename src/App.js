@@ -12,12 +12,11 @@ const Login = lazy(() => import("./pages/Login"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const Cart = lazy(() => import("./pages/Cart"));
 
-
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/frontend_store" element={<Layout />}>
           <Route index element={<Products />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contacts />} />
@@ -27,7 +26,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/panel" element={<AdminPanel />} />
-          <Route path="*" element={<p>Page Not Found</p>} />
+          <Route path="/frontend_store/*" element={<p>Page Not Found</p>} />
         </Route>
       </Routes>
     </>
