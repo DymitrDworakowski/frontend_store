@@ -1,68 +1,153 @@
 .container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 2rem 1rem;
-  background: #fff;
-  border: 1px solid #eaeaea;
-  border-radius: 6px;
-  animation: fadeIn 0.3s ease-out;
+  padding: 3rem 2rem;
+  min-height: 100vh;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
 .title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #333;
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0 0 1rem 0;
 }
 
-.lead {
+.subtitle {
+  font-size: 1.2rem;
   color: #666;
-  margin-bottom: 1rem;
+  margin: 0;
+  line-height: 1.5;
 }
 
-.list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1rem 0;
+.contactsGrid {
   display: grid;
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
-.item {
-  padding: 0.75rem 1rem;
-  background: #fafafa;
-  border: 1px solid #f0f0f0;
-  border-radius: 4px;
+.contactCard {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
   display: flex;
-  gap: 0.75rem;
+  align-items: flex-start;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.contactCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
+}
+
+.iconWrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
   align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
 
-.label {
-  min-width: 90px;
-  color: #333;
+.contactCard:hover .iconWrapper {
+  transform: scale(1.1);
+}
+
+.contactInfo {
+  flex: 1;
+}
+
+.contactLabel {
+  font-size: 1.1rem;
   font-weight: 600;
+  color: #333;
+  margin: 0 0 0.5rem 0;
 }
 
-.value a {
-  color: #1a73e8;
+.contactValue {
+  font-size: 1rem;
+  color: #666;
+  margin: 0 0 1rem 0;
+  word-break: break-all;
+}
+
+.contactLink {
+  font-size: 1rem;
+  color: #667eea;
   text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-block;
+  word-break: break-all;
 }
 
-.value a:hover {
+.contactLink:hover {
+  color: #764ba2;
   text-decoration: underline;
 }
 
+.copyButton {
+  background: #f8f9fa;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copyButton:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
 .note {
-  margin-top: 1rem;
+  background: #fff8e1;
+  border: 1px solid #ffd54f;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.noteIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.note p {
+  margin: 0;
   color: #666;
+  line-height: 1.6;
   font-size: 0.95rem;
 }
 
+/* Анімації */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -70,8 +155,130 @@
   }
 }
 
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contactCard {
+  animation: slideUp 0.5s ease-out;
+}
+
+.contactCard:nth-child(1) { animation-delay: 0.1s; }
+.contactCard:nth-child(2) { animation-delay: 0.2s; }
+.contactCard:nth-child(3) { animation-delay: 0.3s; }
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .contactsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .contactCard {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+  
+  .iconWrapper {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 @media (max-width: 480px) {
   .container {
-    padding: 1rem 0.5rem;
+    padding: 1.5rem 1rem;
   }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .contactCard {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.25rem;
+  }
+  
+  .note {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
+
+/* Темна тема */
+@media (prefers-color-scheme: dark) {
+  .container {
+    background: #1a1a1a;
+    color: #fff;
+  }
+  
+  .subtitle {
+    color: #ccc;
+  }
+  
+  .contactCard {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+  
+  .contactLabel {
+    color: #fff;
+  }
+  
+  .contactValue {
+    color: #ccc;
+  }
+  
+  .copyButton {
+    background: #333;
+    color: #fff;
+    border-color: #555;
+  }
+  
+  .copyButton:hover {
+    background: #667eea;
+    color: #fff;
+  }
+  
+  .note {
+    background: #333;
+    border-color: #555;
+  }
+  
+  .note p {
+    color: #ccc;
+  }
+}
+
+/* Ефект копіювання */
+.copyButton.copied {
+  background: #4caf50;
+  color: white;
+  border-color: #4caf50;
+}
+
+/* Альтернативний варіант з іконками з Font Awesome (якщо використовуєте) */
+.contactCard .fa {
+  font-size: 1.5rem;
 }

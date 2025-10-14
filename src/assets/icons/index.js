@@ -11,3 +11,6 @@ export { ReactComponent as PlaceholderIcon } from "../svg/placeholder.svg";
 export { ReactComponent as TrashIcon } from "../svg/trash.svg";
 export { ReactComponent as AvatarIcon } from "../svg/avatar.svg";
 export { ReactComponent as LogoutIcon } from "../svg/logout.svg";
+export { ReactComponent as EmailIcon } from "../svg/email.svg";
+export { ReactComponent as GitHubIcon } from "../svg/github.svg";
+export { ReactComponent as LinkedInIcon } from "../svg/linkedin.svg";
